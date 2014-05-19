@@ -7,7 +7,7 @@ class pdo_connect
     {
         try {
             $db_host = 'localhost';  //  hostname
-            $db_name = 'car';  //  databasename
+            $db_name = 'epicblog';  //  databasename
             $db_user = 'root';  //  username
             $user_pw = '123';  //  password
 
