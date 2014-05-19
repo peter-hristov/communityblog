@@ -1,5 +1,13 @@
 <?php
 
+
+function debug($x = null)
+{
+	echo '<pre>';
+	print_r($x);
+	echo '</pre>';
+}
+
 session_start();
 
 if ( !defined("__DIR__")) define("__DIR__", dirname(__FILE__));
@@ -9,21 +17,21 @@ $router = array();
 
 //Setting up the router
 if(!empty($_GET['page'])){
-    $router['controller'] = $_GET['page'].'Controller';
-    unset($_GET['page']);
+	$router['controller'] = $_GET['page'].'Controller';
+	unset($_GET['page']);
 }
 //Default Value
 else {
-    $router['controller'] = 'HomepageController';
+	$router['controller'] = 'HomepageController';
 }
 
 if(!empty($_GET['action']))
 {
-    $router['action']=$_GET['action'];
-    unset($_GET['action']);
+	$router['action']=$_GET['action'];
+	unset($_GET['action']);
 }
 else
-    $router['action']='index';
+	$router['action']='index';
 
 if(!empty($_GET['arg']))
-    $router['arg'] = $_GET['arg'];
+	$router['arg'] = $_GET['arg'];
