@@ -19,11 +19,11 @@
     <div class="wrapper">
         <div>
             <div class="header"><a href="/car/index.php"><span>Наем на коли</span></a></div>
-            <div class="navigation">
+            <div class="navigation container">
                 <ul>
-                    <li><a href="/car/index.php?">Начало</a></li>
-                    <li><a href="/car/index.php?page=Types">Оферти</a></li>
-                    <li><a href="/car/index.php?page=Orders">Заявка</a></li>
+                    <li><a href="index.php?page=Posts">Posts</a></li>
+                    <li><a href="/car/index.php?page=Types">Search</a></li>
+                    <li><a href="/car/index.php?page=Orders">About Us</a></li>
                 </ul>
             </div>
-            <div class="content">
+            <div class="content container">

@@ -1,6 +1,6 @@
 		</div>
-			<div class="footer">
-				<p> Copyrighted (R) 2014 --- Made by Hristo Georgiev</p>
+			<div class="footer container">
+				<p> Copyrighted (R) 2014 --- Made by Peter Hristov</p>
 			</div>
 			</div>
 
