@@ -18,7 +18,6 @@
 <body>
     <div class="wrapper">
         <div>
-            <div class="header"><a href="/car/index.php"><span>Наем на коли</span></a></div>
             <div class="navigation container">
                 <ul class="nav navbar-nav navbar-default navbar-left clearfix">
                     <li><a href="index.php?page=Posts">Posts</a></li>
