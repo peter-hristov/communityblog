@@ -4,14 +4,16 @@ require 'Controller.php';
 
 class PostsController extends Controller{
 
-    public function index($stuff)
-    {
-        $statement = $this->pdo->prepare('SELECT * from posts');
-        $statement->execute();
 
-        while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-            $data['Posts'][] = $row;
-        }
+    function __construct()
+    {
+        parent::__construct();
+        $this->tableName = "posts";
+    }
+
+    public function index( $options = array() )
+    {
+        $data['Posts'] = $this->getAll();
 
         // $a = $stuff['perPage'];
         // $b = $stuff['pagPage'];
@@ -29,12 +31,16 @@ class PostsController extends Controller{
         // }
 
 
-
         // $data['Posts'] = $tempData['Posts'];
 
         echo $this->renderView('Posts/index', compact('data'));
     }
 
+    public function view( $options = array() ) {
+
+        $data = $this->getOne($options['id']);
+        echo $this->renderView('Posts/view', compact('data'));
+    }
 
 
     public function add()
@@ -62,9 +68,30 @@ class PostsController extends Controller{
         echo $this->renderView('Posts/add');
     }
 
+    public function edit( $options = array() )
+    {
+        if(!empty($_POST)) {
+            $stmt = $this->pdo->prepare(
+                    "UPDATE posts
+                    SET title=:title, body=:body, modified=:modified
+                    WHERE id=:id
+                    ");
+            $stmt->execute(array(
+            ':id' => $_POST['id'],
+            ':title' => $_POST['title'],
+            ':body' => $_POST['body'],
+            ':modified'=>date('Y-m-d H:i:s')));
+
+            header('Location: /'.__APPNAME__.'/index.php?page=Posts');
+            die();
+        }
+
+        $data = $this->getOne($options['id']);
+        echo $this->renderView('Posts/edit', compact('data'));
+    }
 
 
-    public function delete($id)
+    public function delete()
     {
         if(!empty($_POST)) {
             $id = $_POST['id'];
