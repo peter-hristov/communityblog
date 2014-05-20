@@ -20,10 +20,19 @@
         <div>
             <div class="header"><a href="/car/index.php"><span>Наем на коли</span></a></div>
             <div class="navigation container">
-                <ul>
+                <ul class="nav navbar-nav navbar-default navbar-left clearfix">
                     <li><a href="index.php?page=Posts">Posts</a></li>
-                    <li><a href="/car/index.php?page=Types">Search</a></li>
-                    <li><a href="/car/index.php?page=Orders">About Us</a></li>
+                    <li><a href="index.php?page=Types">Search</a></li>
+                    <li><a href="index.php?page=Orders">About Us</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-default navbar-right">
+                    <?php if (isUserLogged()) : ; ?>
+                        <li><a ><?php echo 'Hello, '.$_SESSION['Auth']['email'].' !';?></a></li>
+                        <li><a href="index.php?page=Users&action=logout">Logout</a></li>
+                    <?php else : ; ?>
+                        <li><a href="index.php?page=Users&action=add">Register</a></li>
+                        <li><a href="index.php?page=Users&action=login">Login</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <div class="content container">

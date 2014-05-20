@@ -31,7 +31,7 @@ class Controller{
             if(!empty($options['WHERE'])) {
                 $query.=' WHERE ';
                 foreach ($options['WHERE'] as $key => $value) {
-                    $temp[] = $key.'='.$value;
+                    $temp[] = $key.'='.'"'.$value.'"';
                 }
                 $query .= implode(' AND ', $temp);
             }

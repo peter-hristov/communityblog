@@ -1,4 +1,4 @@
-<h3 class="text-center"><?php echo 'Edit Post '.$data['id']; ?></h3>
+<h1 class="text-center"><?php echo 'Edit Post '.$data['id']; ?></h1>
 <form role="form" action="index.php?page=Posts&action=edit" method="post">
 
 

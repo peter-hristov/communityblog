@@ -1,15 +1,15 @@
-<h3 class="text-center">Register</h3>
+<h1 class="text-center">Register</h1>
 
 <form role="form" action="index.php?page=Users&action=add" method="post">
 
   <div class="form-group">
     <label for="title">Email</label>
-    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>
   </div>
 
   <div class="form-group">
     <label for="body">Password</label>
-    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
   </div>
 
  <!--  <div class="form-group">

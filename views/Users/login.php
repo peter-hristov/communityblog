@@ -1,18 +1,16 @@
-<h1 class="text-center">Add New Post</h1>
-<form role="form" action="index.php?page=Posts&action=add" method="post">
+<h1 class="text-center">LOGIN</h1>
+
+<form role="form" action="index.php?page=Users&action=login " method="post">
 
   <div class="form-group">
-    <label for="title">Post Title</label>
-    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+    <label for="title">Email</label>
+    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>
   </div>
 
   <div class="form-group">
-    <label for="body">Post Text</label>
-    <textarea class="form-control" id='body' rows="10" name="body" placeholder="Enter Text" required></textarea>
+    <label for="body">Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
   </div>
-
-  <input type="hidden" name="add" value='1'/>
-
 
  <!--  <div class="form-group">
     <label for="exampleInputFile">File input</label>

@@ -8,6 +8,13 @@ function debug($x = null)
 	echo '</pre>';
 }
 
+function isUserLogged()
+{
+	if (session_status() != PHP_SESSION_NONE && !empty($_SESSION['Auth']))
+		return true;
+	return false;
+}
+
 session_start();
 
 if ( !defined("__DIR__")) define("__DIR__", dirname(__FILE__));
@@ -23,7 +30,7 @@ if(!empty($_GET['page'])){
 }
 //Default Value
 else {
-	$router['controller'] = 'HomepageController';
+	$router['controller'] = 'PagesController';
 }
 
 if(!empty($_GET['action']))

@@ -36,8 +36,8 @@ class PostsController extends Controller{
         echo $this->renderView('Posts/index', compact('data'));
     }
 
-    public function view( $options = array() ) {
-
+    public function view( $options = array() )
+    {
         $data = $this->getOne($options['id']);
         echo $this->renderView('Posts/view', compact('data'));
     }
@@ -45,6 +45,12 @@ class PostsController extends Controller{
 
     public function add()
     {
+        if (!isUserLogged())
+        {
+            header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
+            die();
+        }
+
         if(!empty($_POST)) {
             $stmt = $this->pdo->prepare(
                     "INSERT INTO posts (user_id, status, title, body, created, modified)
@@ -70,6 +76,12 @@ class PostsController extends Controller{
 
     public function edit( $options = array() )
     {
+        if (!isUserLogged())
+        {
+            header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
+            die();
+        }
+
         if(!empty($_POST)) {
             $stmt = $this->pdo->prepare(
                     "UPDATE posts
@@ -93,6 +105,12 @@ class PostsController extends Controller{
 
     public function delete()
     {
+        if (!isUserLogged())
+        {
+            header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
+            die();
+        }
+
         if(!empty($_POST)) {
             $id = $_POST['id'];
             $stmt = $this->pdo->prepare('DELETE FROM posts WHERE id = '.$id);
