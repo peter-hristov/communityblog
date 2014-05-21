@@ -38,7 +38,26 @@ class PostsController extends Controller{
 
     public function view( $options = array() )
     {
-        $data = $this->getOne($options['id']);
+        $data['Posts'] = $this->getOne($options['id']);
+
+        $statement = $this->pdo->prepare('
+            SELECT users.id userID, comments.id commentID, comments.text, users.email, comments.post_id
+            FROM users
+            RIGHT JOIN comments
+            ON users.id = comments.user_id
+            WHERE comments.post_id = :id
+        ');
+
+        $statement->execute(array(':id' => $options['id']));
+
+        $data['Comments'] = array();
+        while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $data['Comments'][] = $row;
+        }
+
+        debug($data);
+
+
         echo $this->renderView('Posts/view', compact('data'));
     }
 
