@@ -75,7 +75,7 @@ VALUES (3, 0, 'This title6', 'This body6', NOW(), NOW());
 
 # 1
 INSERT INTO users(email, password, created)
-VALUES ('admin@admin.com', 'admin', NOW());
+VALUES ('admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', NOW());
 
 
 ## Comments
