@@ -1,6 +1,6 @@
 <?php
 
-require __ROOT__.'/Util/pdo_connect.php';
+require __ROOT__.'/include/classes/pdo_connect.php';
 
 class Controller{
 

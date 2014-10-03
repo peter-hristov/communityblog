@@ -10,10 +10,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="./resources/css/bootstrap/main.css">
+    <link rel="stylesheet" href="./resources/css/bootstrap/normalize.min.css">
+    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.min.css">
 </head>
 <body>
     <div class="wrapper">
