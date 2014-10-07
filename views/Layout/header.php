@@ -6,14 +6,18 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Car</title>
+    <title>Community Blog</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="./resources/css/bootstrap/main.css">
-    <link rel="stylesheet" href="./resources/css/bootstrap/normalize.min.css">
-    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.min.css">
+    <script src="./resources/js/jquery-1.11.1.js"></script>
+    <script src="./resources/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.css">    
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+     
 </head>
 <body>
     <div class="wrapper">
