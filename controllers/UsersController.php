@@ -16,21 +16,21 @@ class UsersController extends Controller{
         $data = $_POST;
         $errors = $this->registerValidation($_POST);
 
-        debug($data);
-        debug($errors);
-
-        
         if(!empty($data) && empty($errors)) {           
 
             $stmt = $this->pdo->prepare(
-                    "INSERT INTO users (email, password, created)
-                     VALUES ( :email, :password, :created)
+                    "INSERT INTO users (email, password, created, name, gender, birthDate)
+                     VALUES ( :email, :password, :created, :name, :gender, :birthDate)
                     ");
 
             $stmt->execute(array(
-            ':email' => $_POST['email'],
-            ':password' => md5($_POST['password']),
-            ':created'=>date('Y-m-d H:i:s')));
+                ':email' => $_POST['email'],
+                ':password' => md5($_POST['password']),
+                ':created'=>date('Y-m-d H:i:s'),
+                ':name' => $data['name'],
+                ':gender' => substr($data['gender'],0 ,1),
+                ':birthDate' => strtotime($data['birth-day'] . '/' . $data['birth-month'] . '/' . $data['birth-year']),
+            ));
 
             header('Location: /'.__APPNAME__.'/index.php?page=Posts');
             die();
