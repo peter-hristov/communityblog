@@ -5,44 +5,54 @@
   <form role="form" action="index.php?page=Users&action=add" method="post">
 
     <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+        <label for="email">Email
+            <?php if ( isset($errors['email']) && $errors['email']) : ; ?>
+                <span style="color:red;">Your email is not valid!</span> 
+            <?php endif; ?>
+        </label>
+        <input <?php if ( isset($data['email'])) echo 'value = \''.$data['email'].'\''; ?> type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>
     </div>
 
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+        <label for="password">Password
+            <?php if ( isset($errors['password']) && $errors['password']) : ; ?>
+                <span style="color:red;">Your password is not valid!</span> 
+            <?php endif; ?>
+        </label>
+        <input <?php if ( isset($data['password'])) echo 'value = \''.$data['password'].'\''; ?> type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
     </div>
 
     <div class="form-group">
-        <label for="name">Real Name</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+        <label for="name">Real Name
+            <?php if ( isset($errors['name']) && $errors['name']) : ; ?>
+                <span style="color:red;">Your name is not valid!</span> 
+            <?php endif; ?>
+        </label>
+        <input <?php if ( isset($data['name'])) echo 'value = \''.$data['name'].'\''; ?> type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
     </div>
 
     <label>Gender</label>
 
     <div class="form-group">
         <label class="radio-inline">
-            <input type="radio" name="gender" value="male" id="male"> Male
+            <input <?php if ( isset($data['gender']) && $data['gender'] === 'male') echo 'checked'; ?> type="radio" name="gender" value="male" id="male"> Male
         </label>
         <label class="radio-inline">
-            <input type="radio" name="gender" value="female" id="female"> Female
+            <input <?php if ( isset($data['gender']) && $data['gender'] === 'female') echo 'checked'; ?> type="radio" name="gender" value="female" id="female"> Female
         </label>
     </div>
 
     <div class="controlls form-inline form-group">
         <label>
-            <select name="birth-day" id="birth-day"></select>Day
+            <select name="birth-day" id="birth-day"></select> Day
         </label>
         <label>
-            <select name="birth-month" id="birth-month"></select>Month
+            <select name="birth-month" id="birth-month"></select> Month
         </label>
         <label>
-            <select name="birth-year" id="birth-year"></select>Year
+            <select name="birth-year" id="birth-year"></select> Year
         </label>        
     </div>
-
-
 
     <script type="text/javascript">
 
@@ -68,20 +78,34 @@
 
         var data = '';
         for ( var x in months ) {
-            data +='<option value=\'' + (x + 1) + '\'>' + months[x].name + '</option>';
+            data +='<option value=\'' + (parseInt(x)+1).toString() + '\'>' + months[x].name + '</option>';
         }
         monthElement.innerHTML = data;
         monthElement.addEventListener('change', change);
 
         data = '';
         for ( var i = 1900 ; i <= 2014 ; i ++ ) {
-            data += '<option>' + i + '</option>';
+            data += '<option>' + parseInt(i).toString() + '</option>';
         }
-        yearElement.innerHTML = data;
+        yearElement.innerHTML = data;        
 
+
+
+        // Assigning values other than the defaults if we're returning from a post request
         
+        <?php if (isset($data['birth-year'])) : ;?>            
+            yearElement.selectedIndex = <?php echo (int)$data['birth-year'] ?> - 1900 ;
+        <?php  endif;?>
+
+        <?php if (isset($data['birth-month'])) : ;?>            
+            monthElement.selectedIndex = <?php echo (int)$data['birth-month'] - 1 ?>  ;
+        <?php  endif;?>
 
         change ();
+
+        <?php if (isset($data['birth-day'])) : ;?>            
+            dayElement.selectedIndex = <?php echo (int)$data['birth-day'] - 1 ?>  ;
+        <?php  endif;?>
 
         function change()
         {
@@ -89,16 +113,11 @@
             var maxDay = months[monthElement.selectedIndex].length;
 
             for ( var i = 1; i <= maxDay ; i++ ) {
-                data += '<option>' + i + '</option>';
+                data += '<option>' + parseInt(i).toString() + '</option>';
             }
 
             dayElement.innerHTML = data;
         }
-
-
-
-
-
 
 
     </script>

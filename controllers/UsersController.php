@@ -13,7 +13,14 @@ class UsersController extends Controller{
 
     public function add()
     {
-        if(!empty($_POST)) {
+        $data = $_POST;
+        $errors = $this->registerValidation($_POST);
+
+        debug($data);
+        debug($errors);
+
+        
+        if(!empty($data) && empty($errors)) {           
 
             $stmt = $this->pdo->prepare(
                     "INSERT INTO users (email, password, created)
@@ -29,7 +36,11 @@ class UsersController extends Controller{
             die();
         }
 
-        echo $this->renderView('Users/add');
+        //echo $this->renderView('Users/add', compact('inputData', 'errors'));
+
+        echo $this->renderView('Users/add', compact('data', 'errors'));
+
+        //echo $this->renderView('Users/add');
     }
 
     public function login()
@@ -56,5 +67,34 @@ class UsersController extends Controller{
         session_destroy();
         header('Location: /'.__APPNAME__.'/index.php?page=Posts');
         die();
+    }
+
+
+    private function registerValidation( $data = array() ) 
+    {
+        if ( empty($data) )
+            return array();
+
+        $errors = array();
+
+        if ( !empty($data['name']) && !preg_match('/^[a-z][a-z ]*$/i', $data['name']) )            
+            $errors['name'] = true;
+
+        if ( !empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL) )
+            $errors['email'] = true;
+
+        if ( !empty($data['gender']) && !( $data['gender'] === 'male' || $data['gender'] === 'female') )
+            $errors['gender'] = true;
+
+        if ( !empty($data['birth-day']) && ! ( $data['birth-day'] >=1 && $data['birth-day'] <= 31 ) )
+            $errors['birth-day'] = true;
+
+        if ( !empty($data['birth-month']) && ! ( $data['birth-month'] >=1 && $data['birth-month'] <= 12 ) )
+            $errors['birth-month'] = true;
+
+        if ( !empty($data['birth-year']) && ! ( $data['birth-year'] >= 1900 && $data['birth-year'] <= 2014 ) )
+            $errors['birth-year'] = true;
+
+        return $errors;
     }
 }

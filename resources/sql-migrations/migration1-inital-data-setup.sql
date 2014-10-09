@@ -27,7 +27,10 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE users
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(50),
+    name VARCHAR(100),
+    birthDate DATE,
+    gender VARCHAR(1),
+    email VARCHAR(100),
     password VARCHAR(40),
     created DATETIME
 );
