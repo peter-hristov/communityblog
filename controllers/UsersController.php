@@ -14,6 +14,13 @@ class UsersController extends Controller{
     public function add()
     {
         if(!empty($_POST)) {
+
+
+            debug($_POST);
+
+            die();
+
+
             $stmt = $this->pdo->prepare(
                     "INSERT INTO users (email, password, created)
                      VALUES ( :email, :password, :created)
