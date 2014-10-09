@@ -23,33 +23,90 @@
 
     <div class="form-group">
         <label class="radio-inline">
-            <input type="radio" name="gender" id="male"> Male
+            <input type="radio" name="gender" value="male" id="male"> Male
         </label>
         <label class="radio-inline">
-            <input type="radio" name="gender" id="female"> Female
+            <input type="radio" name="gender" value="female" id="female"> Female
         </label>
     </div>
 
-
-
-
-
-    <div id="datetimepicker" class="input-append date form-group">
-      <input type="text"></input>
-      <span class="add-on">
-        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-      </span>
+    <div class="controlls form-inline form-group">
+        <label>
+            <select name="birth-day" id="birth-day"></select>Day
+        </label>
+        <label>
+            <select name="birth-month" id="birth-month"></select>Month
+        </label>
+        <label>
+            <select name="birth-year" id="birth-year"></select>Year
+        </label>        
     </div>
 
-    <script type="text/javascript"
-     src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-    </script>    
+
 
     <script type="text/javascript">
-      $('#datetimepicker').datetimepicker({
-        format: 'dd/MM/yyyy'    
-      });
+
+        var months = [
+            {'name' : 'January', 'length' : 31 },
+            {'name' : 'February', 'length' : 28},
+            {'name' : 'March', 'length' : 31},
+            {'name' : 'April', 'length' : 30},
+            {'name' : 'May', 'length' : 31},
+            {'name' : 'June', 'length' : 30},
+            {'name' : 'July', 'length' : 31},
+            {'name' : 'August', 'length' : 30},
+            {'name' : 'September', 'length' : 31},
+            {'name' : 'October', 'length' : 30},
+            {'name' : 'November', 'length' : 31},
+            {'name' : 'December', 'length' : 30},
+        ];
+
+
+        var dayElement = document.getElementById('birth-day')
+        var monthElement = document.getElementById('birth-month')
+        var yearElement = document.getElementById('birth-year')
+
+        var data = '';
+        for ( var x in months ) {
+            data +='<option value=\'' + (x + 1) + '\'>' + months[x].name + '</option>';
+        }
+        monthElement.innerHTML = data;
+        monthElement.addEventListener('change', change);
+
+        data = '';
+        for ( var i = 1900 ; i <= 2014 ; i ++ ) {
+            data += '<option>' + i + '</option>';
+        }
+        yearElement.innerHTML = data;
+
+        
+
+        change ();
+
+        function change()
+        {
+            var data = '';
+            var maxDay = months[monthElement.selectedIndex].length;
+
+            for ( var i = 1; i <= maxDay ; i++ ) {
+                data += '<option>' + i + '</option>';
+            }
+
+            dayElement.innerHTML = data;
+        }
+
+
+
+
+
+
+
     </script>
+
+
+
+
+
 
 
 
