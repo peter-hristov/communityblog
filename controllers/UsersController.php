@@ -16,7 +16,7 @@ class UsersController extends Controller{
         $data = $_POST;
         $errors = $this->registerValidation($_POST);
 
-        if(!empty($data) && empty($errors)) {           
+        if(!empty($data) && empty($errors)) {
 
             $stmt = $this->pdo->prepare(
                     "INSERT INTO users (email, password, created, name, gender, birthDate)
@@ -29,18 +29,14 @@ class UsersController extends Controller{
                 ':created'=>date('Y-m-d H:i:s'),
                 ':name' => $data['name'],
                 ':gender' => substr($data['gender'],0 ,1),
-                ':birthDate' => strtotime($data['birth-day'] . '/' . $data['birth-month'] . '/' . $data['birth-year']),
+                ':birthDate' => $data['birth-year'] . '-' . $data['birth-month'] . '-' . $data['birth-day'],
             ));
 
             header('Location: /'.__APPNAME__.'/index.php?page=Posts');
             die();
         }
 
-        //echo $this->renderView('Users/add', compact('inputData', 'errors'));
-
         echo $this->renderView('Users/add', compact('data', 'errors'));
-
-        //echo $this->renderView('Users/add');
     }
 
     public function login()

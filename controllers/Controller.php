@@ -12,6 +12,21 @@ class Controller{
         $this->pdo = (new pdo_connect())->getPdo();
     }
 
+    
+    public function renderView($viewName, $data = array() )
+    {
+        $view = __ROOT__. "/views/{$viewName}.php";
+        if ( !is_readable($view)) throw new Exception("Something Failed :/ ");
+        extract($data);
+        ob_start();
+        include $view;
+        return ob_get_clean();
+    }
+
+
+
+    // Framework like get stuff
+
     public function getOne($id = null) {
         if($this->tableName && $id) {
             $statement = $this->pdo->prepare('SELECT * from '.$this->tableName.' WHERE id=:id');
@@ -46,15 +61,5 @@ class Controller{
             return $data;
         }
         return null;
-    }
-
-    public function renderView($viewName, $data = array() )
-    {
-        $view = __ROOT__. "/views/{$viewName}.php";
-        if ( !is_readable($view)) throw new Exception("Something Failed :/ ");
-        extract($data);
-        ob_start();
-        include $view;
-        return ob_get_clean();
     }
 }
