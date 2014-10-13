@@ -32,6 +32,8 @@ CREATE TABLE users
     gender VARCHAR(1),
     email VARCHAR(100),
     password VARCHAR(40),
+    token VARCHAR(50),
+    email_confirmed BOOLEAN,
     created DATETIME
 );
 

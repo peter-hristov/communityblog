@@ -19,8 +19,8 @@ class UsersController extends Controller{
         if(!empty($data) && empty($errors)) {
 
             $stmt = $this->pdo->prepare(
-                    "INSERT INTO users (email, password, created, name, gender, birthDate)
-                     VALUES ( :email, :password, :created, :name, :gender, :birthDate)
+                    "INSERT INTO users (email, password, created, name, gender, birthDate, token, email_confirmed)
+                     VALUES ( :email, :password, :created, :name, :gender, :birthDate, :token, :email_confirmed)
                     ");
 
             $stmt->execute(array(
@@ -30,6 +30,8 @@ class UsersController extends Controller{
                 ':name' => $data['name'],
                 ':gender' => substr($data['gender'],0 ,1),
                 ':birthDate' => $data['birth-year'] . '-' . $data['birth-month'] . '-' . $data['birth-day'],
+                ':token' => md5(uniqid(mt_rand(), true)),
+                ':email_confirmed' => false,
             ));
 
             header('Location: /'.__APPNAME__.'/index.php?page=Posts');
@@ -66,14 +68,50 @@ class UsersController extends Controller{
     }
 
 
-    private function registerValidation( $data = array() ) 
+    public function confirmAccount( $option = array() ) {
+
+        $user = $this->processToken( $option['token'] );
+
+        if (isset($user)) {
+
+            if ( $user['email_confirmed'] == 0 ) {
+                $stmt = $this->pdo->prepare("UPDATE users SET email_confirmed=1 WHERE id=".$user['id'])->execute();
+                echo $this->renderView('Users/confirmed');
+            }
+            else {
+                echo $this->renderView('Users/already_confirmed');
+            }
+        }
+        else {
+            echo $this->renderView('Users/rejected');
+        }
+    }
+
+
+    private function processToken ( $token )
+    {
+        if ( empty($token) ) return null;
+
+        $statement = $this->pdo->prepare('select * from users where token=:x');
+        $statement->execute(array(':x' => $token));
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ( empty($user) )  return null;
+
+        return $user;
+    }
+
+
+
+
+    private function registerValidation( $data = array() )
     {
         if ( empty($data) )
             return array();
 
         $errors = array();
 
-        if ( !empty($data['name']) && !preg_match('/^[a-z][a-z ]*$/i', $data['name']) )            
+        if ( !empty($data['name']) && !preg_match('/^[a-z][a-z ]*$/i', $data['name']) )
             $errors['name'] = true;
 
         if ( !empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL) )
