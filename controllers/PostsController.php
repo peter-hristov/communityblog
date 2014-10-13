@@ -64,7 +64,7 @@ class PostsController extends Controller{
 
     public function add()
     {
-        if (!isUserLogged())
+        if (!Utils::isUserLogged())
         {
             header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
             die();
@@ -95,7 +95,7 @@ class PostsController extends Controller{
 
     public function edit( $options = array() )
     {
-        if (!isUserLogged())
+        if (!Utils::isUserLogged())
         {
             header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
             die();
@@ -124,7 +124,7 @@ class PostsController extends Controller{
 
     public function delete()
     {
-        if (!isUserLogged())
+        if (!Utils::isUserLogged())
         {
             header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
             die();

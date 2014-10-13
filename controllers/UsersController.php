@@ -4,7 +4,6 @@ require 'Controller.php';
 
 class UsersController extends Controller{
 
-
     function __construct()
     {
         parent::__construct();
@@ -18,6 +17,8 @@ class UsersController extends Controller{
 
         if(!empty($data) && empty($errors)) {
 
+            $token = md5(uniqid(mt_rand(), true));
+
             $stmt = $this->pdo->prepare(
                     "INSERT INTO users (email, password, created, name, gender, birthDate, token, email_confirmed)
                      VALUES ( :email, :password, :created, :name, :gender, :birthDate, :token, :email_confirmed)
@@ -30,9 +31,19 @@ class UsersController extends Controller{
                 ':name' => $data['name'],
                 ':gender' => substr($data['gender'],0 ,1),
                 ':birthDate' => $data['birth-year'] . '-' . $data['birth-month'] . '-' . $data['birth-day'],
-                ':token' => md5(uniqid(mt_rand(), true)),
+                ':token' => $token,
                 ':email_confirmed' => false,
             ));
+
+            // Sending Token
+
+            $this->mailer->sendEmail(
+                'cake@party.com',
+                $data['email'],
+                'PartyPlant Account Confirmation',
+                'Hello, please follow this link to confirm your account : http://localhost/communityblog/index.php?page=Users&action=confirmAccount&token='.$token
+            );
+
 
             header('Location: /'.__APPNAME__.'/index.php?page=Posts');
             die();

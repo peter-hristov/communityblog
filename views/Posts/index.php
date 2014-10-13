@@ -1,6 +1,6 @@
 <h1 class="text-center">Index</h1>
 
-<?php if(isUserLogged()) : ;?>
+<?php if(Utils::isUserLogged()) : ;?>
     <a href="<?php echo 'index.php?page=Posts&action=add'?>" class="btn btn-success">New Post</a>
 <?php endif; ?>
 
@@ -15,7 +15,7 @@
 
         <td><?php echo $x['created']; ?></td>
 
-        <?php if(isUserLogged()) : ;?>
+        <?php if(Utils::isUserLogged()) : ;?>
             <td>
                 <a class="btn btn-primary" href=<?php echo 'index.php?page=Posts&action=edit&id='.$x['id']?> >Edit</a>
             </td>

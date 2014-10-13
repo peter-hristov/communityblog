@@ -1,6 +1,7 @@
 <?php
 
 require __ROOT__.'/include/classes/pdo_connect.php';
+require __ROOT__.'/include/classes/MyPHPMailer/MyPHPMailer.php';
 
 class Controller{
 
@@ -10,9 +11,10 @@ class Controller{
     public function __construct()
     {
         $this->pdo = (new pdo_connect())->getPdo();
+        $this->mailer = new MyPHPMailer();
     }
 
-    
+
     public function renderView($viewName, $data = array() )
     {
         $view = __ROOT__. "/views/{$viewName}.php";

@@ -2,7 +2,7 @@
 <form role="form" action="index.php?page=Comments&action=add" method="post">
 
 
-    <?php if(!isUserLogged()) : ; ?>
+    <?php if(!Utils::isUserLogged()) : ; ?>
         <div class="form-group">
         <label for="name">Your Name</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>

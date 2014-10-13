@@ -4,7 +4,7 @@
     <li><a href="index.php?page=Orders">About Us</a></li>
 </ul>
 <ul class="nav navbar-nav navbar-default navbar-right">
-    <?php if (isUserLogged()) : ; ?>
+    <?php if (Utils::isUserLogged()) : ; ?>
         <li><a ><?php echo 'Hello, '.$_SESSION['Auth']['email'].' !';?></a></li>
         <li><a href="index.php?page=Users&action=logout">Logout</a></li>
     <?php else : ; ?>
