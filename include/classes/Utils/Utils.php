@@ -2,7 +2,7 @@
 
 class Utils{
 
-    public static function debug()
+    public static function debug($x)
     {
         echo '<pre>';
         print_r($x);

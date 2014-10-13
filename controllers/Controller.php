@@ -7,6 +7,7 @@ class Controller{
 
     protected $pdo;
     protected $tableName;
+    protected $mailer;
 
     public function __construct()
     {
@@ -15,7 +16,7 @@ class Controller{
     }
 
 
-    public function renderView($viewName, $data = array() )
+    public function RenderView($viewName, $data = array() )
     {
         $view = __ROOT__. "/views/{$viewName}.php";
         if ( !is_readable($view)) throw new Exception("Something Failed :/ ");
@@ -27,9 +28,10 @@ class Controller{
 
 
 
+
     // Framework like get stuff
 
-    public function getOne($id = null) {
+    public function GetOne($id = null) {
         if($this->tableName && $id) {
             $statement = $this->pdo->prepare('SELECT * from '.$this->tableName.' WHERE id=:id');
             $statement->execute(array('id' => $id));
@@ -39,7 +41,7 @@ class Controller{
         return null;
     }
 
-    public function getAll($options = array()) {
+    public function GetAll($options = array()) {
 
         if($this->tableName) {
 

@@ -10,10 +10,10 @@ class UsersController extends Controller{
         $this->tableName = "users";
     }
 
-    public function add()
+    public function Add()
     {
         $data = $_POST;
-        $errors = $this->registerValidation($_POST);
+        $errors = $this->registerValidation($data);
 
         if(!empty($data) && empty($errors)) {
 
@@ -25,8 +25,8 @@ class UsersController extends Controller{
                     ");
 
             $stmt->execute(array(
-                ':email' => $_POST['email'],
-                ':password' => md5($_POST['password']),
+                ':email' => $data['email'],
+                ':password' => md5($data['password']),
                 ':created'=>date('Y-m-d H:i:s'),
                 ':name' => $data['name'],
                 ':gender' => substr($data['gender'],0 ,1),
@@ -49,10 +49,10 @@ class UsersController extends Controller{
             die();
         }
 
-        echo $this->renderView('Users/add', compact('data', 'errors'));
+        echo $this->RenderView('Users/add', compact('data', 'errors'));
     }
 
-    public function login()
+    public function Login()
     {
         if(!empty($_POST)) {
 
@@ -67,10 +67,10 @@ class UsersController extends Controller{
             header('Location: /'.__APPNAME__.'/index.php?page=Posts');
             die();
         }
-        echo $this->renderView('Users/login');
+        echo $this->RenderView('Users/login');
     }
 
-    public function logout()
+    public function Logout()
     {
         $_SESSION = array();
         session_destroy();
@@ -79,7 +79,7 @@ class UsersController extends Controller{
     }
 
 
-    public function confirmAccount( $option = array() ) {
+    public function ConfirmAccount( $option = array() ) {
 
         $user = $this->processToken( $option['token'] );
 
@@ -87,17 +87,16 @@ class UsersController extends Controller{
 
             if ( $user['email_confirmed'] == 0 ) {
                 $stmt = $this->pdo->prepare("UPDATE users SET email_confirmed=1 WHERE id=".$user['id'])->execute();
-                echo $this->renderView('Users/confirmed');
+                echo $this->RenderView('Users/confirmed');
             }
             else {
-                echo $this->renderView('Users/already_confirmed');
+                echo $this->RenderView('Users/already_confirmed');
             }
         }
         else {
-            echo $this->renderView('Users/rejected');
+            echo $this->RenderView('Users/rejected');
         }
     }
-
 
     private function processToken ( $token )
     {
@@ -111,9 +110,6 @@ class UsersController extends Controller{
 
         return $user;
     }
-
-
-
 
     private function registerValidation( $data = array() )
     {

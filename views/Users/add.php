@@ -1,4 +1,4 @@
-<div class="col-sm-4">    
+<div class="col-sm-4">
 
   <h1 class="text-center">Register</h1>
 
@@ -7,7 +7,7 @@
     <div class="form-group">
         <label for="email">Email
             <?php if ( isset($errors['email']) && $errors['email']) : ; ?>
-                <span style="color:red;">Your email is not valid!</span> 
+                <span style="color:red;">Your email is not valid!</span>
             <?php endif; ?>
         </label>
         <input <?php if ( isset($data['email'])) echo 'value = \''.$data['email'].'\''; ?> type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>
@@ -16,7 +16,7 @@
     <div class="form-group">
         <label for="password">Password
             <?php if ( isset($errors['password']) && $errors['password']) : ; ?>
-                <span style="color:red;">Your password is not valid!</span> 
+                <span style="color:red;">Your password is not valid!</span>
             <?php endif; ?>
         </label>
         <input <?php if ( isset($data['password'])) echo 'value = \''.$data['password'].'\''; ?> type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
@@ -25,7 +25,7 @@
     <div class="form-group">
         <label for="name">Real Name
             <?php if ( isset($errors['name']) && $errors['name']) : ; ?>
-                <span style="color:red;">Your name is not valid!</span> 
+                <span style="color:red;">Your name is not valid!</span>
             <?php endif; ?>
         </label>
         <input <?php if ( isset($data['name'])) echo 'value = \''.$data['name'].'\''; ?> type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
@@ -51,10 +51,12 @@
         </label>
         <label>
             <select name="birth-year" id="birth-year"></select> Year
-        </label>        
+        </label>
     </div>
 
     <script type="text/javascript">
+
+        var currentYear = <?php echo (int)date('Y'); ?>
 
         var months = [
             {'name' : 'January', 'length' : 31 },
@@ -84,26 +86,24 @@
         monthElement.addEventListener('change', change);
 
         data = '';
-        for ( var i = 1900 ; i <= 2014 ; i ++ ) {
+        for ( var i = currentYear ; i >= 1900 ; i -- ) {
             data += '<option>' + parseInt(i).toString() + '</option>';
         }
-        yearElement.innerHTML = data;        
-
-
+        yearElement.innerHTML = data;
 
         // Assigning values other than the defaults if we're returning from a post request
-        
-        <?php if (isset($data['birth-year'])) : ;?>            
-            yearElement.selectedIndex = <?php echo (int)$data['birth-year'] ?> - 1900 ;
+
+        <?php if (isset($data['birth-year'])) : ;?>
+            yearElement.selectedIndex = currentYear - <?php echo (int)$data['birth-year'] ?>  ;
         <?php  endif;?>
 
-        <?php if (isset($data['birth-month'])) : ;?>            
+        <?php if (isset($data['birth-month'])) : ;?>
             monthElement.selectedIndex = <?php echo (int)$data['birth-month'] - 1 ?>  ;
         <?php  endif;?>
 
         change ();
 
-        <?php if (isset($data['birth-day'])) : ;?>            
+        <?php if (isset($data['birth-day'])) : ;?>
             dayElement.selectedIndex = <?php echo (int)$data['birth-day'] - 1 ?>  ;
         <?php  endif;?>
 

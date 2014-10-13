@@ -14,34 +14,34 @@
 
     <script src="./resources/js/jquery-1.11.1.js"></script>
     <script src="./resources/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.css">    
+    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.css">
 
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">     
+     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 </head>
 
 <body>
     <div class="wrapper">
-    	
-    	<?php  require __DIR__.'/views/Layout/header.php'; ?> 
-    	
-    	<div class="navigation container">       
-        	<?php  require __DIR__.'/views/Layout/navbar.php'; ?>
+
+        <?php  require __DIR__.'/views/Layout/header.php'; ?>
+
+        <div class="navigation container">
+            <?php  require __DIR__.'/views/Layout/navbar.php'; ?>
         </div>
 
         <div class="content container">
-			<?php
-				require __DIR__."/controllers/{$router['controller']}.php";
-				(new $router['controller']())->$router['action']($_GET);
-			?>
-		</div>
-		
-		<div class="footer container">
-			<?php require __DIR__.'/views/Layout/footer.php'; ?>
-		</div>
-		
-	</div>
+            <?php
+                require __DIR__."/controllers/{$router['controller']}.php";
+                (new $router['controller']())->$router['action']($_GET);
+            ?>
+        </div>
+
+        <div class="footer container">
+            <?php require __DIR__.'/views/Layout/footer.php'; ?>
+        </div>
+
+    </div>
 </body>
 
 </html>

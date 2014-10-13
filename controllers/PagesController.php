@@ -5,13 +5,13 @@ require 'Controller.php';
 class PagesController extends Controller{
 
 
-	public function index()
-	{
-		echo $this->renderView('Pages/homepage');
-	}
+    public function Index()
+    {
+        echo $this->RenderView('Pages/homepage');
+    }
 
-	public function notlogged()
-	{
-		echo $this->renderView('Pages/notlogged');
-	}
+    public function Notlogged()
+    {
+        echo $this->RenderView('Pages/notlogged');
+    }
 }
