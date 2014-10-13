@@ -11,7 +11,7 @@ class PostsController extends Controller{
         $this->tableName = "posts";
     }
 
-    public function Index( $options = array() )
+    public function index( $options = array() )
     {
         $data['Posts'] = $this->getAll();
 
@@ -33,10 +33,10 @@ class PostsController extends Controller{
 
         // $data['Posts'] = $tempData['Posts'];
 
-        echo $this->RenderView('Posts/index', compact('data'));
+        echo $this->renderView('Posts/index', compact('data'));
     }
 
-    public function View( $options = array() )
+    public function view( $options = array() )
     {
         $data['Posts'] = $this->getOne($options['id']);
 
@@ -58,11 +58,11 @@ class PostsController extends Controller{
         Utils::debug($data);
 
 
-        echo $this->RenderView('Posts/view', compact('data'));
+        echo $this->renderView('Posts/view', compact('data'));
     }
 
 
-    public function Add()
+    public function add()
     {
         if (!Utils::isUserLogged())
         {
@@ -90,10 +90,10 @@ class PostsController extends Controller{
             die();
         }
 
-        echo $this->RenderView('Posts/add');
+        echo $this->renderView('Posts/add');
     }
 
-    public function Edit( $options = array() )
+    public function edit( $options = array() )
     {
         if (!Utils::isUserLogged())
         {
@@ -118,11 +118,11 @@ class PostsController extends Controller{
         }
 
         $data = $this->getOne($options['id']);
-        echo $this->RenderView('Posts/edit', compact('data'));
+        echo $this->renderView('Posts/edit', compact('data'));
     }
 
 
-    public function Delete()
+    public function delete()
     {
         if (!Utils::isUserLogged())
         {

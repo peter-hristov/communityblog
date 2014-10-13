@@ -1,17 +1,18 @@
 <?php
+namespace Controller;
 
 require 'Controller.php';
 
 class PagesController extends Controller{
 
 
-    public function Index()
+    public function index()
     {
-        echo $this->RenderView('Pages/homepage');
+        echo $this->renderView('Pages/homepage');
     }
 
-    public function Notlogged()
+    public function notlogged()
     {
-        echo $this->RenderView('Pages/notlogged');
+        echo $this->renderView('Pages/notlogged');
     }
 }

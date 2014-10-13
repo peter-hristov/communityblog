@@ -1,7 +1,7 @@
 <?php
 class MyPDOConnect
 {
-    private $db;
+    protected $dbh;
 
     public function __construct()
     {
@@ -14,7 +14,8 @@ class MyPDOConnect
             $con = new PDO('mysql:host='.$db_host.'; dbname='.$db_name, $db_user, $user_pw);
             $con->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
             $con->exec("SET CHARACTER SET utf8");  //  return all sql requests as UTF-8
-            $this->db = $con;
+
+            $this->dbh = $con;
         }
         catch (PDOException $err) {
             echo "THE CONNECTION HAS FAILED : ";
@@ -24,8 +25,8 @@ class MyPDOConnect
         }
     }
 
-    public function getPDO()
+    public function getPdo()
     {
-        return $this->db;
+        return $this->dbh;
     }
 }

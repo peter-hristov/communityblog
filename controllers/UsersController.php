@@ -1,4 +1,5 @@
 <?php
+namespace Controller;
 
 require 'Controller.php';
 
@@ -10,7 +11,7 @@ class UsersController extends Controller{
         $this->tableName = "users";
     }
 
-    public function Add()
+    public function add()
     {
         $data = $_POST;
         $errors = $this->registerValidation($data);
@@ -49,10 +50,10 @@ class UsersController extends Controller{
             die();
         }
 
-        echo $this->RenderView('Users/add', compact('data', 'errors'));
+        echo $this->renderView('Users/add', compact('data', 'errors'));
     }
 
-    public function Login()
+    public function login()
     {
         if(!empty($_POST)) {
 
@@ -67,10 +68,10 @@ class UsersController extends Controller{
             header('Location: /'.__APPNAME__.'/index.php?page=Posts');
             die();
         }
-        echo $this->RenderView('Users/login');
+        echo $this->renderView('Users/login');
     }
 
-    public function Logout()
+    public function logout()
     {
         $_SESSION = array();
         session_destroy();
@@ -78,8 +79,7 @@ class UsersController extends Controller{
         die();
     }
 
-
-    public function ConfirmAccount( $option = array() ) {
+    public function confirmAccount( $option = array() ) {
 
         $user = $this->processToken( $option['token'] );
 
@@ -87,14 +87,14 @@ class UsersController extends Controller{
 
             if ( $user['email_confirmed'] == 0 ) {
                 $stmt = $this->pdo->prepare("UPDATE users SET email_confirmed=1 WHERE id=".$user['id'])->execute();
-                echo $this->RenderView('Users/confirmed');
+                echo $this->renderView('Users/confirmed');
             }
             else {
-                echo $this->RenderView('Users/already_confirmed');
+                echo $this->renderView('Users/already_confirmed');
             }
         }
         else {
-            echo $this->RenderView('Users/rejected');
+            echo $this->renderView('Users/rejected');
         }
     }
 

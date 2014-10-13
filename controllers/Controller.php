@@ -1,6 +1,8 @@
 <?php
 
-require __ROOT__.'/include/classes/pdo_connect.php';
+namespace controller;
+
+require __ROOT__.'/include/classes/MyPDOConnect/MyPDOConnect.php';
 require __ROOT__.'/include/classes/MyPHPMailer/MyPHPMailer.php';
 
 class Controller{
@@ -11,12 +13,12 @@ class Controller{
 
     public function __construct()
     {
-        $this->pdo = (new pdo_connect())->getPdo();
+        $this->pdo = (new MyPDOConnect())->getPDO();
         $this->mailer = new MyPHPMailer();
     }
 
 
-    public function RenderView($viewName, $data = array() )
+    public function renderView($viewName, $data = array() )
     {
         $view = __ROOT__. "/views/{$viewName}.php";
         if ( !is_readable($view)) throw new Exception("Something Failed :/ ");
@@ -31,7 +33,7 @@ class Controller{
 
     // Framework like get stuff
 
-    public function GetOne($id = null) {
+    public function getOne($id = null) {
         if($this->tableName && $id) {
             $statement = $this->pdo->prepare('SELECT * from '.$this->tableName.' WHERE id=:id');
             $statement->execute(array('id' => $id));
@@ -41,7 +43,7 @@ class Controller{
         return null;
     }
 
-    public function GetAll($options = array()) {
+    public function getAll($options = array()) {
 
         if($this->tableName) {
 

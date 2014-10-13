@@ -1,5 +1,7 @@
 <?php
 
+namespace Controller;
+
 require 'Controller.php';
 
 class CommentsController extends Controller{
@@ -11,7 +13,7 @@ class CommentsController extends Controller{
 		$this->tableName = "comments";
 	}
 
-	public function Add()
+	public function add()
 	{
 		if(!empty($_POST)) {
 
@@ -35,6 +37,6 @@ class CommentsController extends Controller{
 			die();
 		}
 
-		echo $this->RenderView('Comments/add');
+		echo $this->renderView('Comments/add');
 	}
 }
