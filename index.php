@@ -14,11 +14,8 @@
 
     <script src="./resources/js/jquery-1.11.1.js"></script>
     <script src="./resources/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap-theme.css">
     <link rel="stylesheet" href="./resources/css/bootstrap/bootstrap.css">
-
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 </head>
 
 <body>
@@ -33,7 +30,7 @@
         <div class="content container">
             <?php
                 class_alias('Core\\Controller\\'.$router['controller'], 'RequiestedController');
-                (new RequiestedController())->$router['action']();
+                (new RequiestedController())->$router['action']($_GET);
             ?>
         </div>
 

@@ -52,11 +52,11 @@ class PostsController extends Controller{
         $statement->execute(array(':id' => $options['id']));
 
         $data['Comments'] = array();
-        while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+        while($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
             $data['Comments'][] = $row;
         }
 
-        Utils::debug($data);
+        \Utils::debug($data);
 
 
         echo $this->renderView('Posts/view', compact('data'));

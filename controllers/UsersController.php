@@ -104,7 +104,7 @@ class UsersController extends Controller{
 
         $statement = $this->pdo->prepare('select * from users where token=:x');
         $statement->execute(array(':x' => $token));
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        $user = $statement->fetch(\PDO::FETCH_ASSOC);
 
         if ( empty($user) )  return null;
 

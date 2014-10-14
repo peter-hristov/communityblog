@@ -31,7 +31,7 @@ class Controller{
         if($this->tableName && $id) {
             $statement = $this->pdo->prepare('SELECT * from '.$this->tableName.' WHERE id=:id');
             $statement->execute(array('id' => $id));
-            $row = $statement->fetch(PDO::FETCH_ASSOC);
+            $row = $statement->fetch(\PDO::FETCH_ASSOC);
             return $row;
         }
         return null;
