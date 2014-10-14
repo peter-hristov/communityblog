@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace controller;
 
 require 'Controller.php';
 
