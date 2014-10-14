@@ -1,11 +1,7 @@
 <?php
-namespace controller;
+namespace Core\Controller;
 
 require 'Controller.php';
-
-function blq (){
-    echo 'adsfasd';
-}
 
 class UsersController extends Controller{
 

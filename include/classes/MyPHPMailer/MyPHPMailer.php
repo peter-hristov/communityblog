@@ -8,7 +8,7 @@ class MyPHPMailer
 {
     private $mailer;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->mailer = new PHPMailer(); // create a new object
 
@@ -28,7 +28,7 @@ class MyPHPMailer
 
         $this->mailer->Username = "peter.g.hristov@gmail.com";
 
-        $this->mailer->Password = "epicpass1";        
+        $this->mailer->Password = "epicpass1";
     }
 
     public function sendEmail($from, $to, $subject, $body) {
@@ -39,20 +39,12 @@ class MyPHPMailer
 
         $this->mailer->Subject = $subject;
 
-        $this->mailer->Body = $body;     
+        $this->mailer->Body = $body;
 
+        $this->mailer->Send();
 
-        $this->mailer->Send();   
+        // if(!$this->mailer->Send())
 
-
-
-
-       // if(!$this->mailer->Send())
-
-
-
-          // throw new myPHPMailerError($this->mailer->ErrorInfo);       
-
+        // throw new myPHPMailerError($this->mailer->ErrorInfo);
     }
-
 }

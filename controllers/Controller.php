@@ -1,5 +1,5 @@
 <?php
-namespace controller;
+namespace Core\Controller;
 
 require __ROOT__.'/include/classes/MyPDOConnect/MyPDOConnect.php';
 require __ROOT__.'/include/classes/MyPHPMailer/MyPHPMailer.php';
@@ -16,7 +16,6 @@ class Controller{
         $this->mailer = new \MyPHPMailer();
     }
 
-
     public function renderView($viewName, $data = array() )
     {
         $view = __ROOT__. "/views/{$viewName}.php";
@@ -27,11 +26,7 @@ class Controller{
         return ob_get_clean();
     }
 
-
-
-
     // Framework like get stuff
-
     public function getOne($id = null) {
         if($this->tableName && $id) {
             $statement = $this->pdo->prepare('SELECT * from '.$this->tableName.' WHERE id=:id');

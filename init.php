@@ -8,6 +8,24 @@ if ( !defined("__APPNAME__")) define("__APPNAME__", array_pop(explode('/', __ROO
 
 require './include/classes/Utils/Utils.php';
 
+
+// Autoloader setup
+function autoloadController($class)
+{
+    $parts = explode('\\', $class);
+    require './controllers/'.end($parts) . '.php';
+}
+
+// To Do :
+// Implemented a recursive directory iterator for the include folder
+function autoloadInclude($class)
+{
+
+}
+spl_autoload_register('autoloadController');
+spl_autoload_register('autoloadInclude');
+
+
 $router = array();
 
 //Setting up the router

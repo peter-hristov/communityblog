@@ -1,10 +1,9 @@
 <?php
-namespace controller;
+namespace Core\Controller;
 
 require 'Controller.php';
 
 class PagesController extends Controller{
-
 
     public function index()
     {

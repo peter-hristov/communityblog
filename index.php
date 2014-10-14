@@ -32,24 +32,8 @@
 
         <div class="content container">
             <?php
-
-                function autoloadController($class)
-                {
-                    $parts = explode('\\', $class);
-                    require './controllers/'.end($parts) . '.php';
-                }
-                spl_autoload_register('autoloadController');
-
-                class_alias('controller\\'.$router['controller'], 'RequiestedController');
-
+                class_alias('Core\\Controller\\'.$router['controller'], 'RequiestedController');
                 (new RequiestedController())->$router['action']();
-
-
-                // Old version
-
-                // require __DIR__."/controllers/{$router['controller']}.php";
-                // $class = 'controller\\'.$router['controller'];
-                // (new $class())->$router['action']($_GET);
             ?>
         </div>
 
