@@ -1,5 +1,4 @@
 <?php
-
 namespace controller;
 
 require __ROOT__.'/include/classes/MyPDOConnect/MyPDOConnect.php';
@@ -13,8 +12,8 @@ class Controller{
 
     public function __construct()
     {
-        $this->pdo = (new MyPDOConnect())->getPDO();
-        $this->mailer = new MyPHPMailer();
+        $this->pdo = (new \MyPDOConnect())->getPDO();
+        $this->mailer = new \MyPHPMailer();
     }
 
 
@@ -61,7 +60,7 @@ class Controller{
             $statement->execute();
 
             $data = array();
-            while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            while($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
                 $data[] = $row;
             }
             return $data;

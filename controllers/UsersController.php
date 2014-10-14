@@ -3,6 +3,10 @@ namespace Controller;
 
 require 'Controller.php';
 
+function blq (){
+    echo 'adsfasd';
+}
+
 class UsersController extends Controller{
 
     function __construct()

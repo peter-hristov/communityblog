@@ -33,7 +33,10 @@
         <div class="content container">
             <?php
                 require __DIR__."/controllers/{$router['controller']}.php";
-                (new $router['controller']())->$router['action']($_GET);
+
+                $class = 'controller\\'.$router['controller'];
+
+                (new $class())->$router['action']($_GET);
             ?>
         </div>
 
