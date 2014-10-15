@@ -1,16 +1,17 @@
 <?php
+namespace Core\Wrapper;
 
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
 // PHPMailer Wrapper
 
-class MyPHPMailer
+class PHPMailerWrapper
 {
     private $mailer;
 
     public function __construct()
     {
-        $this->mailer = new PHPMailer(); // create a new object
+        $this->mailer = new \PHPMailer(); // create a new object
 
         $this->mailer->IsSMTP(); // enable SMTP
 
@@ -46,5 +47,5 @@ class MyPHPMailer
         // if(!$this->mailer->Send())
 
         // throw new myPHPMailerError($this->mailer->ErrorInfo);
-    }
+           }
 }

@@ -1,5 +1,7 @@
 <?php
-class MyPDOConnect
+namespace Core\Wrapper;
+
+class PDOWrapper
 {
     protected $dbh;
 
@@ -11,8 +13,8 @@ class MyPDOConnect
             $db_user = 'root';  //  username
             $user_pw = '123';  //  password
 
-            $con = new PDO('mysql:host='.$db_host.'; dbname='.$db_name, $db_user, $user_pw);
-            $con->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+            $con = new \PDO('mysql:host='.$db_host.'; dbname='.$db_name, $db_user, $user_pw);
+            $con->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
             $con->exec("SET CHARACTER SET utf8");  //  return all sql requests as UTF-8
 
             $this->dbh = $con;
@@ -25,7 +27,7 @@ class MyPDOConnect
         }
     }
 
-    public function getPdo()
+    public function getPDO()
     {
         return $this->dbh;
     }

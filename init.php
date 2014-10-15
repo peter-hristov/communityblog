@@ -6,7 +6,7 @@ if ( !defined("__DIR__")) define("__DIR__", dirname(__FILE__));
 if ( !defined("__ROOT__")) define("__ROOT__", __DIR__);
 if ( !defined("__APPNAME__")) define("__APPNAME__", array_pop(explode('/', __ROOT__ )));
 
-require './include/classes/Utils/Utils.php';
+require './include/Utils/Utils.php';
 
 
 // Autoloader setup
@@ -22,8 +22,10 @@ function autoloadInclude($class)
 {
 
 }
+
 spl_autoload_register('autoloadController');
 spl_autoload_register('autoloadInclude');
+
 
 
 $router = array();
