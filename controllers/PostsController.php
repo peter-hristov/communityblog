@@ -1,9 +1,6 @@
 <?php
-namespace Core\Controller;
 
-require 'Controller.php';
-
-class PostsController extends Controller{
+class PostsController extends core\controller\Controller{
 
 
     function __construct()

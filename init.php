@@ -13,7 +13,7 @@ require './include/Utils/Utils.php';
 function autoloadController($class)
 {
     $parts = explode('\\', $class);
-    require './controllers/'.end($parts) . '.php';
+    require __ROOT__.'/'.implode('/', $parts).'/'.end($parts).'.php';
 }
 
 // To Do :

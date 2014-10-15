@@ -1,5 +1,5 @@
 <?php
-namespace Core\Wrapper;
+namespace core\wrapper;
 
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 

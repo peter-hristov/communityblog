@@ -1,9 +1,6 @@
 <?php
-namespace Core\Controller;
 
-require 'Controller.php';
-
-class CommentsController extends Controller{
+class CommentsController extends core\controller\Controller{
 
     function __construct()
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Core\Wrapper;
+namespace core\wrapper;
 
 class PDOWrapper
 {

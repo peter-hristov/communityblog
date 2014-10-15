@@ -1,9 +1,6 @@
 <?php
-namespace Core\Controller;
 
-require 'Controller.php';
-
-class UsersController extends Controller{
+class UsersController extends core\controller\Controller{
 
     function __construct()
     {

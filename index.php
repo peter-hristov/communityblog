@@ -29,8 +29,14 @@
 
         <div class="content container">
             <?php
-                class_alias('Core\\Controller\\'.$router['controller'], 'RequiestedController');
-                (new RequiestedController())->$router['action']($_GET);
+                //class_alias($router['controller'], 'RequiestedController');
+                //(new RequiestedController())->$router['action']($_GET);
+
+                require './controllers/'.$router['controller'].'.php';
+
+                (new $router['controller'])->$router['action']();
+
+
             ?>
         </div>
 

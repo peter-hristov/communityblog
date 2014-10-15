@@ -1,8 +1,6 @@
 <?php
-namespace Core\Controller;
+namespace core\controller;
 
-require __ROOT__.'/include/Wrappers/PDOWrapper/PDOWrapper.php';
-require __ROOT__.'/include/Wrappers/PHPMailerWrapper/PHPMailerWrapper.php';
 
 class Controller{
 
@@ -12,8 +10,8 @@ class Controller{
 
     public function __construct()
     {
-        $this->pdo = (new \Core\Wrapper\PDOWrapper())->getPDO();
-        $this->mailer = new \Core\Wrapper\PHPMailerWrapper();
+        $this->pdo = (new \core\wrapper\PDOWrapper())->getPDO();
+        $this->mailer = new \core\wrapper\PHPMailerWrapper();
     }
 
     public function renderView($viewName, $data = array() )
