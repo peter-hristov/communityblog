@@ -1,8 +1,11 @@
 {
 
-	"require" : {
-		"phpmailer/phpmailer": "5.2.9"
+    "name" : "Communty Blog",
 
-	}
+    "version" : "0.01",
 
+    "require" : {
+        "phpmailer/phpmailer": "5.*",
+        "twbs/bootstrap": "3.*"
+    }
 }

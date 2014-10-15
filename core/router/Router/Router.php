@@ -1,14 +1,23 @@
 <?php
 namespace core\router;
 
-class Router {
+class Router
+{
 
-    public function __get($propertyName) {
+    public function getController()
+    {
+        return $this->router['controller'];
+    }
+
+    public function __get($propertyName)
+    {
         switch($propertyName) {
+
             case 'controller':
-                return $this->router['controller'];
+                return (string)$this->router['controller'];
+
             case 'action':
-                return $this->router['action'];
+                return (string)$this->router['action'];
         }
     }
 
@@ -32,11 +41,9 @@ class Router {
             unset($req['action']);
         }
         else
-            $this->router['action']='Index';
-
+            $this->router['action']='index';
 
         if(!empty($req['arg']))
             $this->$router['arg'] = $req['arg'];
-
     }
 }

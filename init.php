@@ -12,7 +12,6 @@ function autoloadCore($class)
     $parts = explode('\\', $class);
     require __ROOT__.'/'.implode('/', $parts).'/'.end($parts).'.php';
 }
-
 spl_autoload_register('autoloadCore');
 
 class_alias('\\core\\utils\\Utils', 'Utils', true);
