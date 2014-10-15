@@ -11,7 +11,6 @@ class PostsController extends core\controller\Controller{
 
     public function index( $options = array() )
     {
-        echo __ROOT__.' '.__DIR__.' '.__APPNAME__;
         $data['Posts'] = $this->getAll();
 
         // $a = $stuff['perPage'];

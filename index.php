@@ -13,20 +13,19 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <script src="./resources/js/jquery-1.11.1.js"></script>
-    <script src="./resources/js/bootstrap.js"></script>
+    <script src="./vendor/yiisoft/jquery/jquery.js"></script>
+    <script src="./vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
 
     <link rel="stylesheet" type="text/css" href="./vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="./vendor/twbs/bootstrap/dist/css/bootstrap-theme.css">
-
 </head>
 <body>
     <div class="wrapper">
         <div class="header">
-            <?php require __ROOT__.'/views/Layout/header.php'; ?>
+            <?php require './views/Layout/header.php'; ?>
         </div>
         <div class="navigation container">
-            <?php require __ROOT__.'/views/Layout/navbar.php'; ?>
+            <?php require './views/Layout/navbar.php'; ?>
         </div>
         <div class="content container">
             <?php
@@ -36,7 +35,7 @@
             ?>
         </div>
         <div class="footer container">
-            <?php require __ROOT__.'/views/Layout/footer.php'; ?>
+            <?php require './views/Layout/footer.php'; ?>
         </div>
     </div>
 </body>
