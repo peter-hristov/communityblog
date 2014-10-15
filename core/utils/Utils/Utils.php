@@ -1,5 +1,7 @@
 <?php
 
+namespace core\utils;
+
 class Utils{
 
     public static function debug($x)

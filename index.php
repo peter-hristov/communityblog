@@ -29,14 +29,12 @@
 
         <div class="content container">
             <?php
-                //class_alias($router['controller'], 'RequiestedController');
-                //(new RequiestedController())->$router['action']($_GET);
+                require './controllers/'.$router->controller.'.php';
+                //eval('(new '.$router->controller.'())->'.$router->action.'();');
 
-                require './controllers/'.$router['controller'].'.php';
+                $A = $router->action;
 
-                (new $router['controller'])->$router['action']();
-
-
+                (new $router->controller($_GET))->$router->action() ;
             ?>
         </div>
 
