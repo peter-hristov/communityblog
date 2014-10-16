@@ -21,6 +21,7 @@ class UsersController extends core\controller\Controller
         $this->tableName = "users";
     }
 
+    // To do add capcha, check if user exists , check if password is strong and matches, generate pdf-s
     public function add()
     {
         $data = $_POST;

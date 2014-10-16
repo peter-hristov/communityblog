@@ -3,18 +3,18 @@
 
 
     <?php if(!Utils::isUserLogged()) : ; ?>
-        <div class="form-group">
+    <div class="form-group">
         <label for="name">Your Name</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
-        </div>
+    </div>
     <?php endif; ?>
 
     <div class="form-group">
-    <label for="text">Post Text</label>
-    <textarea class="form-control" id='text' rows="10" name="text" placeholder="Enter Text" required></textarea>
+        <label for="text">Post Text</label>
+        <textarea class="form-control" id='text' rows="10" name="text" placeholder="Enter Text" required></textarea>
     </div>
 
-    <input type="hidden" name="post_id" value=<?php echo $_GET['post_id'];?> />
+    <input type="hidden" name="post_id" value=<?php echo $_GET[ 'post_id'];?>/>
 
 
     <!--  <div class="form-group">

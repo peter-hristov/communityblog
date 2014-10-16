@@ -28,7 +28,7 @@ class CommentsController extends core\controller\Controller
                 ':user_id' => $_SESSION['Auth']['id'],
                 ':post_id' => $_POST['post_id'],
                 ':text' => $_POST['text'],
-                ':created' => date('Y-m-d H:i:s') ,
+                ':created' => date('Y-m-d H:i:s'),
                 ':modified' => date('Y-m-d H:i:s')
             ));
 

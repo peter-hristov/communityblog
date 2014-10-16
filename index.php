@@ -1,10 +1,13 @@
-<?php  require 'init.php'; ?>
+<?php require 'init.php'; ?>
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
 <head>
     <title>Community Blog</title>
 
@@ -19,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="./vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="./vendor/twbs/bootstrap/dist/css/bootstrap-theme.css">
 </head>
+
 <body>
     <div class="wrapper">
         <div class="header">
@@ -27,16 +31,14 @@
         <div class="navigation container">
             <?php require './views/Layout/navbar.php'; ?>
         </div>
+
         <div class="content container">
-            <?php
-                require './controllers/'.$router->controller.'.php';
-                // #magic
-                (new $router->controller())->{$router->action}($_GET);
-            ?>
+            <?php require './controllers/'.$router->controller.'.php'; // #magic (new $router->controller())->{$router->action}($_GET); ?>
         </div>
         <div class="footer container">
             <?php require './views/Layout/footer.php'; ?>
         </div>
     </div>
 </body>
+
 </html>
