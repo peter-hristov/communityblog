@@ -1,4 +1,12 @@
 <?php
+/**
+* Class and Function List:
+* Function list:
+* - __construct()
+* - sendEmail()
+* Classes list:
+* - PHPMailerWrapper
+*/
 namespace core\wrapper;
 
 require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
@@ -11,19 +19,25 @@ class PHPMailerWrapper
 
     public function __construct()
     {
-        $this->mailer = new \PHPMailer(); // create a new object
+        $this->mailer = new \PHPMailer();
+         // create a new object
 
-        $this->mailer->IsSMTP(); // enable SMTP
+        $this->mailer->IsSMTP();
+         // enable SMTP
 
-        $this->mailer->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+        $this->mailer->SMTPDebug = 0;
+         // debugging: 1 = errors and messages, 2 = messages only
 
-        $this->mailer->SMTPAuth = true; // authentication enabled
+        $this->mailer->SMTPAuth = true;
+         // authentication enabled
 
-        $this->mailer->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+        $this->mailer->SMTPSecure = 'ssl';
+         // secure transfer enabled REQUIRED for GMail
 
         $this->mailer->Host = "smtp.gmail.com";
 
-        $this->mailer->Port = 465; // or 587
+        $this->mailer->Port = 465;
+         // or 587
 
         $this->mailer->IsHTML(true);
 
@@ -32,7 +46,8 @@ class PHPMailerWrapper
         $this->mailer->Password = "epicpass1";
     }
 
-    public function sendEmail($from, $to, $subject, $body) {
+    public function sendEmail($from, $to, $subject, $body)
+    {
 
         $this->mailer->SetFrom($from);
 
@@ -47,5 +62,6 @@ class PHPMailerWrapper
         // if(!$this->mailer->Send())
 
         // throw new myPHPMailerError($this->mailer->ErrorInfo);
-           }
+
+    }
 }

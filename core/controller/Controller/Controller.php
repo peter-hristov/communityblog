@@ -1,8 +1,18 @@
 <?php
+/**
+* Class and Function List:
+* Function list:
+* - __construct()
+* - renderView()
+* - getOne()
+* - getAll()
+* Classes list:
+* - Controller
+*/
 namespace core\controller;
 
-
-class Controller{
+class Controller
+{
 
     protected $pdo;
     protected $tableName;
@@ -14,10 +24,10 @@ class Controller{
         $this->mailer = new \core\wrapper\PHPMailerWrapper();
     }
 
-    public function renderView($viewName, $data = array() )
+    public function renderView($viewName, $data = array())
     {
-        $view = __ROOT__. "/views/{$viewName}.php";
-        if ( !is_readable($view)) throw new Exception("Something Failed :/ ");
+        $view = __ROOT__ . "/views/{$viewName}.php";
+        if (!is_readable($view)) throw new Exception("Something Failed :/ ");
         extract($data);
         ob_start();
         include $view;
@@ -25,35 +35,39 @@ class Controller{
     }
 
     // Framework like get stuff
-    public function getOne($id = null) {
-        if($this->tableName && $id) {
-            $statement = $this->pdo->prepare('SELECT * from '.$this->tableName.' WHERE id=:id');
-            $statement->execute(array('id' => $id));
+    public function getOne($id = null)
+    {
+        if ($this->tableName && $id) {
+            $statement = $this->pdo->prepare('SELECT * from ' . $this->tableName . ' WHERE id=:id');
+            $statement->execute(array(
+                'id' => $id
+            ));
             $row = $statement->fetch(\PDO::FETCH_ASSOC);
             return $row;
         }
         return null;
     }
 
-    public function getAll($options = array()) {
+    public function getAll($options = array())
+    {
 
-        if($this->tableName) {
+        if ($this->tableName) {
 
-            $query = 'SELECT * from '.$this->tableName;
+            $query = 'SELECT * from ' . $this->tableName;
 
-            if(!empty($options['WHERE'])) {
-                $query.=' WHERE ';
+            if (!empty($options['WHERE'])) {
+                $query.= ' WHERE ';
                 foreach ($options['WHERE'] as $key => $value) {
-                    $temp[] = $key.'='.'"'.$value.'"';
+                    $temp[] = $key . '=' . '"' . $value . '"';
                 }
-                $query .= implode(' AND ', $temp);
+                $query.= implode(' AND ', $temp);
             }
 
             $statement = $this->pdo->prepare($query);
             $statement->execute();
 
             $data = array();
-            while($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
                 $data[] = $row;
             }
             return $data;

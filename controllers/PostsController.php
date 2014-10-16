@@ -1,7 +1,18 @@
 <?php
-
-class PostsController extends core\controller\Controller{
-
+/**
+* Class and Function List:
+* Function list:
+* - __construct()
+* - index()
+* - view()
+* - add()
+* - edit()
+* - delete()
+* Classes list:
+* - PostsController extends core
+*/
+class PostsController extends core\controller\Controller
+{
 
     function __construct()
     {
@@ -9,7 +20,7 @@ class PostsController extends core\controller\Controller{
         $this->tableName = "posts";
     }
 
-    public function index( $options = array() )
+    public function index($options = array())
     {
         $data['Posts'] = $this->getAll();
 
@@ -20,7 +31,6 @@ class PostsController extends core\controller\Controller{
 
         // $n = min($i + $a, count($data['Posts']));
 
-
         // $tempData['Posts'] = array();
 
         // while( $i < $n ){
@@ -28,13 +38,12 @@ class PostsController extends core\controller\Controller{
         //     $i++;
         // }
 
-
         // $data['Posts'] = $tempData['Posts'];
 
         echo $this->renderView('Posts/index', compact('data'));
     }
 
-    public function view( $options = array() )
+    public function view($options = array())
     {
         $data['Posts'] = $this->getOne($options['id']);
 
@@ -46,72 +55,68 @@ class PostsController extends core\controller\Controller{
             WHERE comments.post_id = :id
         ');
 
-        $statement->execute(array(':id' => $options['id']));
+        $statement->execute(array(
+            ':id' => $options['id']
+        ));
 
         $data['Comments'] = array();
-        while($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
             $data['Comments'][] = $row;
         }
 
         \Utils::debug($data);
 
-
         echo $this->renderView('Posts/view', compact('data'));
     }
 
-
     public function add()
     {
-        if (!Utils::isUserLogged())
-        {
-            header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
+        if (!Utils::isUserLogged()) {
+            header('Location: /' . __APPNAME__ . '/index.php?page=Pages&action=notlogged');
             die();
         }
 
-        if(!empty($_POST)) {
-            $stmt = $this->pdo->prepare(
-                    "INSERT INTO posts (user_id, status, title, body, created, modified)
+        if (!empty($_POST)) {
+            $stmt = $this->pdo->prepare("INSERT INTO posts (user_id, status, title, body, created, modified)
                      VALUES ( :user_id, :status, :title, :body, :created, :modified)
                     ");
 
             $stmt->execute(array(
-            ':user_id' => 1,
-            ':status' => 0,
+                ':user_id' => 1,
+                ':status' => 0,
+                ':title' => $_POST['title'],
+                ':body' => $_POST['body'],
+                ':created' => date('Y-m-d H:i:s') ,
+                ':modified' => date('Y-m-d H:i:s')
+            ));
 
-            ':title' => $_POST['title'],
-            ':body' => $_POST['body'],
-
-            ':created'=>date('Y-m-d H:i:s'),
-            ':modified'=>date('Y-m-d H:i:s')));
-
-            header('Location: /'.__APPNAME__.'/index.php?page=Posts');
+            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
             die();
         }
 
         echo $this->renderView('Posts/add');
     }
 
-    public function edit( $options = array() )
+    public function edit($options = array())
     {
-        if (!Utils::isUserLogged())
-        {
-            header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
+        if (!Utils::isUserLogged()) {
+            header('Location: /' . __APPNAME__ . '/index.php?page=Pages&action=notlogged');
             die();
         }
 
-        if(!empty($_POST)) {
-            $stmt = $this->pdo->prepare(
-                    "UPDATE posts
+        if (!empty($_POST)) {
+            $stmt = $this->pdo->prepare("UPDATE posts
                     SET title=:title, body=:body, modified=:modified
                     WHERE id=:id
                     ");
             $stmt->execute(array(
-            ':id' => $_POST['id'],
-            ':title' => $_POST['title'],
-            ':body' => $_POST['body'],
-            ':modified'=>date('Y-m-d H:i:s')));
+                ':id' => $_POST['id'],
+                ':title' => $_POST['title'],
+                ':body' => $_POST['body'],
+                ':modified' => date('Y-m-d H:i:s')
+            ));
 
-            header('Location: /'.__APPNAME__.'/index.php?page=Posts');
+            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
             die();
         }
 
@@ -119,20 +124,18 @@ class PostsController extends core\controller\Controller{
         echo $this->renderView('Posts/edit', compact('data'));
     }
 
-
     public function delete()
     {
-        if (!Utils::isUserLogged())
-        {
-            header('Location: /'.__APPNAME__.'/index.php?page=Pages&action=notlogged');
+        if (!Utils::isUserLogged()) {
+            header('Location: /' . __APPNAME__ . '/index.php?page=Pages&action=notlogged');
             die();
         }
 
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
             $id = $_POST['id'];
-            $stmt = $this->pdo->prepare('DELETE FROM posts WHERE id = '.$id);
+            $stmt = $this->pdo->prepare('DELETE FROM posts WHERE id = ' . $id);
             $stmt->execute();
-            header('Location: /'.__APPNAME__.'/index.php?page=Posts');
+            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
             die();
         }
     }

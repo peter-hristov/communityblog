@@ -1,6 +1,14 @@
 <?php
-
-class CommentsController extends core\controller\Controller{
+/**
+ * Class and Function List:
+ * Function list:
+ * - __construct()
+ * - add()
+ * Classes list:
+ * - CommentsController extends core
+ */
+class CommentsController extends core\controller\Controller
+{
 
     function __construct()
     {
@@ -10,22 +18,21 @@ class CommentsController extends core\controller\Controller{
 
     public function add()
     {
-        if(!empty($_POST)) {
+        if (!empty($_POST)) {
 
-            $stmt = $this->pdo->prepare(
-                    "INSERT INTO comments (user_id, post_id, text, created, modified)
-                     VALUES ( :user_id, :post_id, :text, :created, :modified)
+            $stmt = $this->pdo->prepare("INSERT INTO comments (user_id, post_id, text, created, modified)
+                    VALUES ( :user_id, :post_id, :text, :created, :modified)
                     ");
 
             $stmt->execute(array(
-            ':user_id' => $_SESSION['Auth']['id'],
-            ':post_id' => $_POST['post_id'],
-            ':text' => $_POST['text'],
+                ':user_id' => $_SESSION['Auth']['id'],
+                ':post_id' => $_POST['post_id'],
+                ':text' => $_POST['text'],
+                ':created' => date('Y-m-d H:i:s') ,
+                ':modified' => date('Y-m-d H:i:s')
+            ));
 
-            ':created'=>date('Y-m-d H:i:s'),
-            ':modified'=>date('Y-m-d H:i:s')));
-
-            header('Location: /'.__APPNAME__.'/index.php?page=Posts');
+            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
             die();
         }
 
