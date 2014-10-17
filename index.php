@@ -33,7 +33,8 @@
         </div>
 
         <div class="content container">
-            <?php require './controllers/'.$router->controller.'.php'; // #magic (new $router->controller())->{$router->action}($_GET); ?>
+            <?php require './controllers/'.$router->controller.'.php'; // #magic
+            (new $router->controller())->{$router->action}($_GET); ?>
         </div>
         <div class="footer container">
             <?php require './views/Layout/footer.php'; ?>

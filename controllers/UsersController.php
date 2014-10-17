@@ -14,7 +14,6 @@
  */
 class UsersController extends core\controller\Controller
 {
-
     function __construct()
     {
         parent::__construct();
@@ -24,34 +23,36 @@ class UsersController extends core\controller\Controller
     // To do add capcha, check if user exists , check if password is strong and matches, generate pdf-s
     public function add()
     {
-        $data = $_POST;
-        $errors = $this->registerValidation($data);
+        if (!empty($_POST)) {
 
-        if (!empty($data) && empty($errors)) {
+            $data = $_POST;
+            $errors = $this->registerValidation($data);
 
-            $token = md5(uniqid(mt_rand() , true));
+            if (!empty($data) && empty($errors)) {
 
-            $stmt = $this->pdo->prepare("INSERT INTO users (email, password, created, name, gender, birthDate, token, email_confirmed)
-                     VALUES ( :email, :password, :created, :name, :gender, :birthDate, :token, :email_confirmed)
+                $token = md5(uniqid(mt_rand() , true));
+
+                $stmt = $this->pdo->prepare("INSERT INTO users (email, password, created, name, gender, birthDate, token, email_confirmed)
+                    VALUES ( :email, :password, :created, :name, :gender, :birthDate, :token, :email_confirmed)
                     ");
 
-            $stmt->execute(array(
-                ':email' => $data['email'],
-                ':password' => md5($data['password']) ,
-                ':created' => date('Y-m-d H:i:s') ,
-                ':name' => $data['name'],
-                ':gender' => substr($data['gender'], 0, 1) ,
-                ':birthDate' => $data['birth-year'] . '-' . $data['birth-month'] . '-' . $data['birth-day'],
-                ':token' => $token,
-                ':email_confirmed' => false,
-            ));
+                $stmt->execute(array(
+                    ':email' => $data['email'],
+                    ':password' => md5($data['password']) ,
+                    ':created' => date('Y-m-d H:i:s') ,
+                    ':name' => $data['name'],
+                    ':gender' => substr($data['gender'], 0, 1) ,
+                    ':birthDate' => $data['birth-year'] . '-' . $data['birth-month'] . '-' . $data['birth-day'],
+                    ':token' => $token,
+                    ':email_confirmed' => false,
+                ));
 
-            // Sending Token
+                // Sending Token
+                $this->mailer->sendEmail('cake@party.com', $data['email'], 'PartyPlant Account Confirmation', 'Hello, please follow this link to confirm your account : http://localhost/communityblog/index.php?page=Users&action=confirmAccount&token=' . $token);
 
-            $this->mailer->sendEmail('cake@party.com', $data['email'], 'PartyPlant Account Confirmation', 'Hello, please follow this link to confirm your account : http://localhost/communityblog/index.php?page=Users&action=confirmAccount&token=' . $token);
-
-            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
-            die();
+                header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
+                die();
+            }
         }
 
         echo $this->renderView('Users/add', compact('data', 'errors'));
@@ -133,7 +134,19 @@ class UsersController extends core\controller\Controller
 
         if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = true;
+
+            if (!empty($this->getOne('email', $data['email']))) {
+                $errors['clone'] = true;
+            }
         }
+
+        if (!empty($data['password']) && !empty($data['rePassword']) && $data['password'] != $data['rePassword']) {
+            $errors['rePassword'] = true;
+        }
+
+        // if (!empty($data['password']) && !preg_match('(?=^(?:[^A-Z]*[A-Z]){2})(?=^(?:[^a-z]*[a-z]){2})(?=^(?:\D*\d){2})(?=^(?:\w*\W){2})^[A-Za-z\d\W]{8,}$', $data['password'])) {
+        //     $errors['password'] = true;
+        // }
 
         if (!empty($data['gender']) && !($data['gender'] === 'male' || $data['gender'] === 'female')) {
             $errors['gender'] = true;
@@ -149,6 +162,18 @@ class UsersController extends core\controller\Controller
 
         if (!empty($data['birth-year']) && !($data['birth-year'] >= 1900 && $data['birth-year'] <= 2014)) {
             $errors['birth-year'] = true;
+        }
+
+        $captcha = new Captcha\Captcha();
+        $captcha->setPublicKey('6LfOI_wSAAAAADJhRfjiNUkZFI-DUhQN8wEzg1PS');
+        $captcha->setPrivateKey('6LfOI_wSAAAAAGBBt21tchLJ3pO6ocuON5zMn-5W ');
+
+        $response = $captcha->check($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+
+        if (!$response->isValid()) {
+
+            //echo $response->getError();
+            $errors['captcha'] = true;
         }
 
         return $errors;

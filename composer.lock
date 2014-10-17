@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e14104b58aaab2bf8193484368b59996",
+    "hash": "6d5ba1128c4c8b61963df856914552e8",
     "packages": [
         {
             "name": "phpmailer/phpmailer",
@@ -58,6 +58,52 @@
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "time": "2014-09-26 18:33:30"
+        },
+        {
+            "name": "recaptcha/php5",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5.git",
+                "reference": "a38938e881a1cb3647271f666f13a01b0c1687f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AlekseyKorzun/reCaptcha-PHP-5/zipball/a38938e881a1cb3647271f666f13a01b0c1687f3",
+                "reference": "a38938e881a1cb3647271f666f13a01b0c1687f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Captcha": "Package"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksey Korzun",
+                    "email": "al.ko@webfoundation.net",
+                    "homepage": "http://www.alekseykorzun.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A properly coded PHP 5 reCaptcha class that will allow you to interact with Google's reCaptcha API.",
+            "homepage": "https://github.com/AlekseyKorzun/reCaptcha-PHP-5",
+            "keywords": [
+                "api",
+                "captcha",
+                "google",
+                "php",
+                "recaptcha"
+            ],
+            "time": "2014-07-07 17:21:13"
         },
         {
             "name": "twbs/bootstrap",

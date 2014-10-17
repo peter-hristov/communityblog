@@ -1,14 +1,14 @@
 <?php
 /**
-* Class and Function List:
-* Function list:
-* - __construct()
-* - renderView()
-* - getOne()
-* - getAll()
-* Classes list:
-* - Controller
-*/
+ * Class and Function List:
+ * Function list:
+ * - __construct()
+ * - renderView()
+ * - getOne()
+ * - getAll()
+ * Classes list:
+ * - Controller
+ */
 namespace core\controller;
 
 class Controller
@@ -35,12 +35,12 @@ class Controller
     }
 
     // Framework like get stuff
-    public function getOne($id = null)
+    public function getOne($name, $value)
     {
-        if ($this->tableName && $id) {
-            $statement = $this->pdo->prepare('SELECT * from ' . $this->tableName . ' WHERE id=:id');
+        if ($this->tableName && $value) {
+            $statement = $this->pdo->prepare('SELECT * from ' . $this->tableName . " WHERE {$name}=:value");
             $statement->execute(array(
-                'id' => $id
+                'value' => $value
             ));
             $row = $statement->fetch(\PDO::FETCH_ASSOC);
             return $row;

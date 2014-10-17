@@ -6,6 +6,7 @@
     "require" : {
         "phpmailer/phpmailer": "5.*",
         "twbs/bootstrap": "3.*",
-        "yiisoft/jquery" : "2.*"
+        "yiisoft/jquery" : "2.*",
+        "recaptcha/php5" : "1.*"
     }
 }

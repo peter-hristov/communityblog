@@ -45,7 +45,7 @@ class PostsController extends core\controller\Controller
 
     public function view($options = array())
     {
-        $data['Posts'] = $this->getOne($options['id']);
+        $data['Posts'] = $this->getOne('id', $options['id']);
 
         $statement = $this->pdo->prepare('
             SELECT users.id userID, comments.id commentID, comments.text, users.email, comments.post_id
@@ -120,7 +120,7 @@ class PostsController extends core\controller\Controller
             die();
         }
 
-        $data = $this->getOne($options['id']);
+        $data = $this->getOne('id', $options['id']);
         echo $this->renderView('Posts/edit', compact('data'));
     }
 

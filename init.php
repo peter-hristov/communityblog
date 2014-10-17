@@ -14,6 +14,9 @@ function autoloadCore($class)
 }
 spl_autoload_register('autoloadCore');
 
+// Composer Autoloader
+require './vendor/autoload.php';
+
 class_alias('\\core\\utils\\Utils', 'Utils', true);
 
 $router = new core\router\Router($_GET);
