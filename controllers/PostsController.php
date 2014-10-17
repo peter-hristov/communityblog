@@ -72,7 +72,7 @@ class PostsController extends core\controller\Controller
     public function add()
     {
         if (!Utils::isUserLogged()) {
-            header('Location: /' . __APPNAME__ . '/index.php?page=Pages&action=notlogged');
+            header('Location: /index.php?page=Pages&action=notlogged');
             die();
         }
 
@@ -90,7 +90,7 @@ class PostsController extends core\controller\Controller
                 ':modified' => date('Y-m-d H:i:s')
             ));
 
-            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
+            header('Location: /index.php?page=Posts');
             die();
         }
 
@@ -100,7 +100,7 @@ class PostsController extends core\controller\Controller
     public function edit($options = array())
     {
         if (!Utils::isUserLogged()) {
-            header('Location: /' . __APPNAME__ . '/index.php?page=Pages&action=notlogged');
+            header('Location: /index.php?page=Pages&action=notlogged');
             die();
         }
 
@@ -116,7 +116,7 @@ class PostsController extends core\controller\Controller
                 ':modified' => date('Y-m-d H:i:s')
             ));
 
-            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
+            header('Location: /index.php?page=Posts');
             die();
         }
 
@@ -127,7 +127,7 @@ class PostsController extends core\controller\Controller
     public function delete()
     {
         if (!Utils::isUserLogged()) {
-            header('Location: /' . __APPNAME__ . '/index.php?page=Pages&action=notlogged');
+            header('Location: /index.php?page=Pages&action=notlogged');
             die();
         }
 
@@ -135,7 +135,7 @@ class PostsController extends core\controller\Controller
             $id = $_POST['id'];
             $stmt = $this->pdo->prepare('DELETE FROM posts WHERE id = ' . $id);
             $stmt->execute();
-            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
+            header('Location: /index.php?page=Posts');
             die();
         }
     }

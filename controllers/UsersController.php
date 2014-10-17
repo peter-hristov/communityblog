@@ -50,7 +50,7 @@ class UsersController extends core\controller\Controller
                 // Sending Token
                 $this->mailer->sendEmail('cake@party.com', $data['email'], 'PartyPlant Account Confirmation', 'Hello, please follow this link to confirm your account : http://localhost/communityblog/index.php?page=Users&action=confirmAccount&token=' . $token);
 
-                header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
+                header('Location: /index.php?page=Posts');
                 die();
             }
         }
@@ -75,7 +75,7 @@ class UsersController extends core\controller\Controller
                 }
                 $_SESSION['Auth'] = $user[0];
             }
-            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
+            header('Location: /index.php?page=Posts');
             die();
         }
         echo $this->renderView('Users/login');
@@ -85,7 +85,7 @@ class UsersController extends core\controller\Controller
     {
         $_SESSION = array();
         session_destroy();
-        header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
+        header('Location: /index.php?page=Posts');
         die();
     }
 

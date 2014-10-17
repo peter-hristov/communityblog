@@ -32,7 +32,7 @@ class CommentsController extends core\controller\Controller
                 ':modified' => date('Y-m-d H:i:s')
             ));
 
-            header('Location: /' . __APPNAME__ . '/index.php?page=Posts');
+            header('Location: /index.php?page=Posts');
             die();
         }
 
