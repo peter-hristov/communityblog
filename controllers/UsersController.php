@@ -142,7 +142,8 @@ class UsersController extends core\controller\Controller
         if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = true;
 
-            if (!empty($this->getOne('email', $data['email']))) {
+            $x = $this->getOne('email', $data['email']);
+            if (!empty($x)) {
                 $errors['clone'] = true;
             }
         }
