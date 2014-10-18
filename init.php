@@ -1,12 +1,16 @@
 <?php
-
 session_start();
 
+// Some handy applicationwide vars
 if (!defined("__DIR__")) define("__DIR__", dirname(__FILE__));
 if (!defined("__ROOT__")) define("__ROOT__", __DIR__);
 if (!defined("__APPNAME__")) define("__APPNAME__", array_pop(explode('/', __ROOT__)));
 
-// Autoloader setup
+// This is either dev.{developer handle} or just production
+if (!defined("__ENVIRONMENT__")) define("__ENVIRONMENT__", 'dev.peter');
+
+
+// Autoloader setup for core framework files
 function autoloadCore($class)
 {
     $parts = explode('\\', $class);
@@ -15,7 +19,7 @@ function autoloadCore($class)
 spl_autoload_register('autoloadCore');
 
 // Composer Autoloader
-require './vendor/autoload.php';
+require __ROOT__.'/vendor/autoload.php';
 
 class_alias('\\core\\utils\\Utils', 'Utils', true);
 

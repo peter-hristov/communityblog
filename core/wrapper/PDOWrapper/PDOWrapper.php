@@ -16,19 +16,13 @@ class PDOWrapper
     public function __construct()
     {
         try {
-            $db_host = 'localhost';
-             //  hostname
-            $db_name = 'communityblog';
-             //  databasename
-            $db_user = 'root';
-             //  username
-            $user_pw = '123';
-             //  password
 
-            $con = new \PDO('mysql:host=' . $db_host . '; dbname=' . $db_name, $db_user, $user_pw);
+            $db = require __ROOT__.'/config/database.'.__ENVIRONMENT__.'.config.php';
+
+            $con = new \PDO('mysql:host=' . $db['host'] . '; dbname=' . $db['name'], $db['user'], $db['password']);
             $con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $con->exec("SET CHARACTER SET utf8");
-             //  return all sql requests as UTF-8
+            //  return all sql requests as UTF-8
 
             $this->dbh = $con;
         }
@@ -37,7 +31,7 @@ class PDOWrapper
             $err->getMessage() . "<br/>";
             file_put_contents('PDOErrors.txt', $err, FILE_APPEND);
             die();
-             //  terminate connection
+            //  terminate connection
 
         }
     }
