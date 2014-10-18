@@ -23,6 +23,7 @@ class UsersController extends core\controller\Controller
     // To do add capcha, check if user exists , check if password is strong and matches, generate pdf-s
     public function add()
     {
+
         if (!empty($_POST)) {
 
             $data = $_POST;
@@ -64,9 +65,12 @@ class UsersController extends core\controller\Controller
 
             $user = $this->getAll(array(
                 'WHERE' => array(
-                    'email' => $_POST['email'],
-                    'password' => md5($_POST['password'])
-                )
+                    'AND' => array(
+                        'email' => $_POST['email'],
+                        'password' => md5($_POST['password'])
+                    )
+                ) ,
+                'LIMIT' => '1',
             ));
 
             if (!empty($user)) {

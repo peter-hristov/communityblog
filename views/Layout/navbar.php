@@ -10,7 +10,7 @@
     <?php if (Utils::isUserLogged()) : ; ?>
     <li>
         <a>
-            <?php echo 'Hello, '.$_SESSION[ 'Auth'][ 'email']. ' !';?>
+            <?php echo 'Hello, '.$_SESSION['Auth']['email']. ' !';?>
         </a>
     </li>
     <li><a href="index.php?page=Users&action=logout">Logout</a>

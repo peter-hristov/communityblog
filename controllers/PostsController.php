@@ -64,8 +64,6 @@ class PostsController extends core\controller\Controller
             $data['Comments'][] = $row;
         }
 
-        \Utils::debug($data);
-
         echo $this->renderView('Posts/view', compact('data'));
     }
 
