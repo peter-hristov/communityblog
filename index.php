@@ -19,27 +19,33 @@
     <script src="./vendor/yiisoft/jquery/jquery.js"></script>
     <script src="./vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="./resources/css/main.css">
+
     <link rel="stylesheet" type="text/css" href="./vendor/twbs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="./vendor/twbs/bootstrap/dist/css/bootstrap-theme.css">
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="header">
-            <?php require './views/Layout/header.php'; ?>
-        </div>
-        <div class="navigation container">
-            <?php require './views/Layout/navbar.php'; ?>
+
+
+        <div class="page-wrap">
+            <div class="header container">
+                <?php require './views/Layout/header.php'; ?>
+            </div>
+            <hr>
+            <div class="navigation container">
+                <?php require './views/Layout/navbar.php'; ?>
+            </div>
+            <div id="main" class="content container clear-top   ">
+                <?php require './controllers/'.$router->controller.'.php'; // #magic
+                (new $router->controller())->{$router->action}($_GET); ?>
+            </div>
         </div>
 
-        <div class="content container">
-            <?php require './controllers/'.$router->controller.'.php'; // #magic
-            (new $router->controller())->{$router->action}($_GET); ?>
-        </div>
-        <div class="footer container">
+        <footer class="container site-footer text-center">
             <?php require './views/Layout/footer.php'; ?>
-        </div>
-    </div>
+        </footer>
+
 </body>
 
 </html>

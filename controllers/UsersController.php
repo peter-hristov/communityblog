@@ -152,9 +152,10 @@ class UsersController extends core\controller\Controller
             $errors['rePassword'] = true;
         }
 
-        // if (!empty($data['password']) && !preg_match('(?=^(?:[^A-Z]*[A-Z]){2})(?=^(?:[^a-z]*[a-z]){2})(?=^(?:\D*\d){2})(?=^(?:\w*\W){2})^[A-Za-z\d\W]{8,}$', $data['password'])) {
-        //     $errors['password'] = true;
-        // }
+        // Regex taken from http://stackoverflow.com/questions/13384008/php-regex-password-validation-not-working
+        if (!empty($data['password']) && !preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/", $data['password'])){
+            $errors['password'] = true;
+        }
 
         if (!empty($data['gender']) && !($data['gender'] === 'male' || $data['gender'] === 'female')) {
             $errors['gender'] = true;
