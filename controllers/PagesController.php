@@ -15,6 +15,11 @@ class PagesController extends core\controller\Controller
         echo $this->renderView('Pages/homepage');
     }
 
+    public function construction()
+    {
+        echo $this->renderView('Pages/construction');
+    }
+
     public function notlogged()
     {
         echo $this->renderView('Pages/notlogged');

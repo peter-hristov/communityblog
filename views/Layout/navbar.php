@@ -2,9 +2,9 @@
     <ul class="nav navbar-nav navbar-default navbar-left">
         <li><a href="index.php?page=Posts">Posts</a>
         </li>
-        <li><a href="index.php?page=Types">Search</a>
+        <li><a href="index.php?page=Pages&action=construction">Search</a>
         </li>
-        <li><a href="index.php?page=Orders">About Us</a>
+        <li><a href="index.php?page=Pages&action=construction">About Us</a>
         </li>
     </ul>
     <ul class="nav navbar-nav navbar-default navbar-right">
