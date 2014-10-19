@@ -12,6 +12,10 @@
         <li>
             <a>
                 <?php echo 'Hello, '.$_SESSION['Auth']['email']. ' !';?>
+
+                <?php if ($_SESSION['Auth']['email_confirmed'] !=1 ) : ; ?>
+                    <p>Please confirm your email.</p>
+                <?php endif; ?>
             </a>
         </li>
         <li><a href="index.php?page=Users&action=logout">Logout</a>
