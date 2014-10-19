@@ -7,7 +7,7 @@ if (!defined("__ROOT__")) define("__ROOT__", __DIR__);
 if (!defined("__APPNAME__")) define("__APPNAME__", array_pop(explode('/', __ROOT__)));
 
 // This is either dev.{developer handle} or just production
-if (!defined("__ENVIRONMENT__")) define("__ENVIRONMENT__", 'production');
+if (!defined("__ENVIRONMENT__")) define("__ENVIRONMENT__", 'dev.peter');
 
 if ( __ENVIRONMENT__ == 'production') {
     if (!defined("__SITENAME__")) define("__SITENAME__", 'partyplant.eu');

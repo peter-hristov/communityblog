@@ -173,9 +173,8 @@ class UsersController extends core\controller\Controller
             $errors['birth-year'] = true;
         }
 
-        $captcha = new Captcha\Captcha();
-        $captcha->setPublicKey('6LcwQPwSAAAAAEaSdomAVBdEa_ZcPFIENzzAaukT');
-        $captcha->setPrivateKey('6LcwQPwSAAAAAEITEtwbGBet_tltApNYbh0oDag9');
+        $captcha = \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__);
+
 
         $response = $captcha->check($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
 

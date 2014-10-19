@@ -80,14 +80,12 @@
     </label>
 
     <?php
-        $captcha = new Captcha\Captcha();
-        $captcha->setPublicKey('6LcwQPwSAAAAAEaSdomAVBdEa_ZcPFIENzzAaukT');
-        $captcha->setPrivateKey('6LcwQPwSAAAAAEITEtwbGBet_tltApNYbh0oDag9');
+        $captcha = \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__);
 
         if (!isset($_SERVER['REMOTE_ADDR'])) {
             $captcha->setRemoteIp('178.62.8.70');
         }
-        // Output captcha to end user
+
         echo $captcha->html();
      ?>
 
