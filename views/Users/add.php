@@ -80,7 +80,7 @@
     </label>
 
     <?php
-        \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__)->html();
+        echo \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__)->html();
      ?>
 
     <script type="text/javascript">
