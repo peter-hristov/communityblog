@@ -23,23 +23,6 @@ class PostsController extends core\controller\Controller
     public function index($options = array())
     {
         $data['Posts'] = $this->getAll();
-
-        // $a = $stuff['perPage'];
-        // $b = $stuff['pagPage'];
-
-        // $i = $a * $b;
-
-        // $n = min($i + $a, count($data['Posts']));
-
-        // $tempData['Posts'] = array();
-
-        // while( $i < $n ){
-        //     $tempData['Posts'][] = $data['Posts'][$i];
-        //     $i++;
-        // }
-
-        // $data['Posts'] = $tempData['Posts'];
-
         echo $this->renderView('Posts/index', compact('data'));
     }
 
@@ -73,7 +56,6 @@ class PostsController extends core\controller\Controller
             header('Location: /index.php?page=Pages&action=notlogged');
             die();
         }
-
         if (!empty($_POST)) {
             $stmt = $this->pdo->prepare("INSERT INTO posts (user_id, status, title, body, created, modified)
                      VALUES ( :user_id, :status, :title, :body, :created, :modified)
@@ -91,7 +73,6 @@ class PostsController extends core\controller\Controller
             header('Location: /index.php?page=Posts');
             die();
         }
-
         echo $this->renderView('Posts/add');
     }
 
@@ -103,10 +84,11 @@ class PostsController extends core\controller\Controller
         }
 
         if (!empty($_POST)) {
-            $stmt = $this->pdo->prepare("UPDATE posts
+            $stmt = $this->pdo->prepare("
+                    UPDATE posts
                     SET title=:title, body=:body, modified=:modified
                     WHERE id=:id
-                    ");
+            ");
             $stmt->execute(array(
                 ':id' => $_POST['id'],
                 ':title' => $_POST['title'],
@@ -128,7 +110,6 @@ class PostsController extends core\controller\Controller
             header('Location: /index.php?page=Pages&action=notlogged');
             die();
         }
-
         if (!empty($_POST)) {
             $id = $_POST['id'];
             $stmt = $this->pdo->prepare('DELETE FROM posts WHERE id = ' . $id);

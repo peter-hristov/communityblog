@@ -16,14 +16,10 @@ class PDOWrapper
     public function __construct()
     {
         try {
-
             $db = require __ROOT__.'/config/database.'.__ENVIRONMENT__.'.config.php';
-
             $con = new \PDO('mysql:host=' . $db['host'] . '; dbname=' . $db['name'], $db['user'], $db['password']);
             $con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $con->exec("SET CHARACTER SET utf8");
-            //  return all sql requests as UTF-8
-
             $this->dbh = $con;
         }
         catch(PDOException $err) {

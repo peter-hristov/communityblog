@@ -138,7 +138,6 @@ class UsersController extends core\controller\Controller
         if (!empty($data['name']) && !preg_match('/^[a-z][a-z ]*$/i', $data['name'])) {
             $errors['name'] = true;
         }
-
         if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = true;
 
@@ -147,40 +146,31 @@ class UsersController extends core\controller\Controller
                 $errors['clone'] = true;
             }
         }
-
         if (!empty($data['password']) && !empty($data['rePassword']) && $data['password'] != $data['rePassword']) {
             $errors['rePassword'] = true;
         }
-
         // Regex taken from http://stackoverflow.com/questions/13384008/php-regex-password-validation-not-working
         if (!empty($data['password']) && !preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/", $data['password'])){
             $errors['password'] = true;
         }
-
         if (!empty($data['gender']) && !($data['gender'] === 'male' || $data['gender'] === 'female')) {
             $errors['gender'] = true;
         }
-
         if (!empty($data['birth-day']) && !($data['birth-day'] >= 1 && $data['birth-day'] <= 31)) {
             $errors['birth-day'] = true;
         }
-
         if (!empty($data['birth-month']) && !($data['birth-month'] >= 1 && $data['birth-month'] <= 12)) {
             $errors['birth-month'] = true;
         }
-
         if (!empty($data['birth-year']) && !($data['birth-year'] >= 1900 && $data['birth-year'] <= 2014)) {
             $errors['birth-year'] = true;
         }
 
         $captcha = \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__);
-
-
         $response = $captcha->check($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
 
-        if (!$response->isValid()) {
-
-            //echo $response->getError();
+        if (!$response->isValid())
+        {
             $errors['captcha'] = true;
         }
 

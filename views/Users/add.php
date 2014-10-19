@@ -80,13 +80,7 @@
     </label>
 
     <?php
-        $captcha = \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__);
-
-        if (!isset($_SERVER['REMOTE_ADDR'])) {
-            $captcha->setRemoteIp('178.62.8.70');
-        }
-
-        echo $captcha->html();
+        \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__)->html();
      ?>
 
     <script type="text/javascript">
