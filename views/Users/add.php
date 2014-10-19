@@ -73,7 +73,7 @@
     </div>
 
 
-    <label for="email">Email
+    <label for="email">
         <?php if ( isset($errors['captcha']) && $errors['captcha']) : ; ?>
             <span style="color:red;">Your captcha is not the most valid thing I've ever seen...</span>
         <?php endif; ?>
@@ -85,7 +85,7 @@
         $captcha->setPrivateKey('6LcwQPwSAAAAAEITEtwbGBet_tltApNYbh0oDag9');
 
         if (!isset($_SERVER['REMOTE_ADDR'])) {
-            $captcha->setRemoteIp('192.168.1.1');
+            $captcha->setRemoteIp('178.62.8.70');
         }
         // Output captcha to end user
         echo $captcha->html();
