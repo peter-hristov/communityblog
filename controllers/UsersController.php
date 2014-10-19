@@ -174,8 +174,8 @@ class UsersController extends core\controller\Controller
         }
 
         $captcha = new Captcha\Captcha();
-        $captcha->setPublicKey('6LdrO_wSAAAAAKm8_PxSJGreOdLVBAoGP2Gi3zgn');
-        $captcha->setPrivateKey('6LdrO_wSAAAAAMH6Ds8YRPAkcKozZX80iGXUsr50');
+        $captcha->setPublicKey('6LcwQPwSAAAAAEaSdomAVBdEa_ZcPFIENzzAaukT');
+        $captcha->setPrivateKey('6LcwQPwSAAAAAEITEtwbGBet_tltApNYbh0oDag9');
 
         $response = $captcha->check($_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
 
