@@ -81,8 +81,8 @@
 
     <?php
         $captcha = new Captcha\Captcha();
-        $captcha->setPublicKey('6Le6IvwSAAAAAFbZKpWbC48BRg_9sis3PitypJ1s');
-        $captcha->setPrivateKey('6Le6IvwSAAAAAE_FFj9P8kcqCXh9raL0Mfx9kv6Q');
+        $captcha->setPublicKey('6LcwQPwSAAAAAEaSdomAVBdEa_ZcPFIENzzAaukT');
+        $captcha->setPrivateKey('6LcwQPwSAAAAAEITEtwbGBet_tltApNYbh0oDag9');
 
         if (!isset($_SERVER['REMOTE_ADDR'])) {
             $captcha->setRemoteIp('192.168.1.1');
