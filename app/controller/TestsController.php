@@ -8,7 +8,7 @@
 * Classes list:
 * - TestsController extends core
 */
-namespace app\controller\TestsController;
+namespace app\controller;
 
 class TestsController extends core\controller\Controller
 {

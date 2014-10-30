@@ -7,7 +7,7 @@
  * Classes list:
  * - CommentsController extends core
  */
-namespace app\controller\CommentsController;
+namespace app\controller;
 
 class CommentsController extends core\controller\Controller
 {

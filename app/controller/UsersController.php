@@ -12,9 +12,9 @@
  * Classes list:
  * - UsersController extends core
  */
-namespace app\controller\UsersController;
+namespace app\controller;
 
-class UsersController extends core\controller\Controller
+class UsersController extends \core\controller\Controller
 {
     function __construct()
     {

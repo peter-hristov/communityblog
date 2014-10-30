@@ -7,9 +7,9 @@
 * Classes list:
 * - PagesController extends core
 */
-namespace app\controller\PagesController;
+namespace app\controller;
 
-class PagesController extends core\controller\Controller
+class PagesController extends \core\controller\Controller
 {
 
     public function index()

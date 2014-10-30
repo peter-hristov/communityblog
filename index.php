@@ -26,25 +26,22 @@
 </head>
 
 <body>
-
-
-        <div class="page-wrap">
-            <div class="header container">
-                <?php require './views/Layout/header.php'; ?>
-            </div>
-            <hr>
-            <div class="navigation container">
-                <?php require './views/Layout/navbar.php'; ?>
-            </div>
-            <div id="main" class="content container clear-top   ">
-                <?php //require './controllers/'.$router->controller.'.php'; // #magic
-                (new $router->controller())->{$router->action}($_GET); ?>
-            </div>
+    <div class="page-wrap">
+        <header class="header container">
+            <?php require './views/Layout/header.php'; ?>
+        </header>
+        <hr>
+        <div class="navigation container">
+            <?php require './views/Layout/navbar.php'; ?>
         </div>
+        <div id="main" class="content container clear-top   ">
+            <?php (new $router->controller())->{$router->action}($_GET); ?>
+        </div>
+    </div>
 
-        <footer class="container site-footer text-center">
-            <?php require './views/Layout/footer.php'; ?>
-        </footer>
+    <footer class="container site-footer text-center">
+        <?php require './views/Layout/footer.php'; ?>
+    </footer>
 
 </body>
 

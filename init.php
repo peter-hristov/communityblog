@@ -17,20 +17,13 @@ if ( __ENVIRONMENT__ == 'dev.peter') {
     if (!defined("__SITENAME__")) define("__SITENAME__", 'partyplant.dev');
 }
 
-// Autoloader setup for core framework files
-function autoloadCore($class)
-{
-    $parts = explode('\\', $class);
-    include __ROOT__ . '/' . implode('/', $parts) . '/' . end($parts) . '.php';
-}
-
-function autoloadApp($class)
+function autoloadAll($class)
 {
     $parts = explode('\\', $class);
     include __ROOT__ . '/' . implode('/', $parts) . '.php';
 }
-spl_autoload_register('autoloadCore');
-spl_autoload_register('autoloadApp');
+
+spl_autoload_register('autoloadAll');
 
 // Composer Autoloader
 require __ROOT__.'/vendor/autoload.php';

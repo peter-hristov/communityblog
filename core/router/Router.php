@@ -25,13 +25,14 @@ class Router
 
     public function __construct($req)
     {
-        $this->router['controller'] = '\\app\\controllers\\';
+        $this->router['controller'] = '\\app\\controller\\';
 
         //Setting up the router
         if(!empty($req['page'])){
             $this->router['controller'] .= $req['page'].'Controller';
             unset($req['page']);
         }
+
         //Default Value
         else {
             $this->router['controller'] .= 'PagesController';
