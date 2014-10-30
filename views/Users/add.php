@@ -1,8 +1,5 @@
 <div class="col-sm-4">
 
-
-
-
   <h1 class="text-center">Register</h1>
 
   <form role="form" action="index.php?page=Users&action=add" method="post">
@@ -11,6 +8,13 @@
         <?php if (isset($errors['clone']) && $errors['clone'] === true ) : ;?>
             <p><span style="color:red;">You remail has already been registered. Are you sure you're not a clone?</span></p>
         <?php endif; ?>
+    </div>
+
+
+    <div class="form-group">
+        <label id="email-label">
+
+        </label>
     </div>
 
     <div class="form-group">
@@ -103,6 +107,33 @@
         ];
 
 
+
+
+
+        var errors =
+        <?php
+
+
+            $s = array();
+            foreach ($errors as $x => $y) {
+                $s[] = '"'.$x.'"';
+            }
+
+            $b = '['.implode(', ', $s).']';
+
+
+            echo $b;
+
+        ?>
+
+        for (var i = errors.length - 1; i >= 0; i--) {
+            console.log(errors[i]);
+        };
+
+
+
+
+
         var dayElement = document.getElementById('birth-day')
         var monthElement = document.getElementById('birth-month')
         var yearElement = document.getElementById('birth-year')
@@ -147,7 +178,6 @@
 
             dayElement.innerHTML = data;
         }
-
     </script>
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
