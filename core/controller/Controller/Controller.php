@@ -29,7 +29,7 @@ class Controller
     public function renderView($viewName, $data = array())
     {
         $view = __ROOT__ . "/views/{$viewName}.php";
-        if (!is_readable($view)) throw new Exception("Something Failed :/ ");
+        if (!is_readable($view)) throw new \Exception("Something Failed :/ ");
         extract($data);
         ob_start();
         include $view;

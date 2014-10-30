@@ -6,6 +6,7 @@
         </li>
         <li><a href="index.php?page=Pages&action=construction">About Us</a>
         </li>
+        <li><a href="index.php?page=Tests&action=ajax">Ajax</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-default navbar-right">
         <?php if (Utils::isUserLogged()) : ; ?>
