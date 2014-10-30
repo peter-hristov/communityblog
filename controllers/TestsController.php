@@ -12,4 +12,9 @@ class TestsController extends core\controller\Controller
     {
         echo $this->renderView('Tests/ajax');
     }
+
+    public function jquery()
+    {
+        echo $this->renderView('Tests/jquery');
+    }
 }
