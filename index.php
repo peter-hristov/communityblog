@@ -37,7 +37,7 @@
                 <?php require './views/Layout/navbar.php'; ?>
             </div>
             <div id="main" class="content container clear-top   ">
-                <?php require './controllers/'.$router->controller.'.php'; // #magic
+                <?php //require './controllers/'.$router->controller.'.php'; // #magic
                 (new $router->controller())->{$router->action}($_GET); ?>
             </div>
         </div>

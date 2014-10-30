@@ -1,4 +1,14 @@
 <?php
+/**
+* Class and Function List:
+* Function list:
+* - __construct()
+* - ajax()
+* - jquery()
+* Classes list:
+* - TestsController extends core
+*/
+namespace app\controller\TestsController;
 
 class TestsController extends core\controller\Controller
 {

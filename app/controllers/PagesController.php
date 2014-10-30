@@ -7,6 +7,8 @@
 * Classes list:
 * - PagesController extends core
 */
+namespace app\controller\PagesController;
+
 class PagesController extends core\controller\Controller
 {
 

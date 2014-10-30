@@ -21,13 +21,20 @@ if ( __ENVIRONMENT__ == 'dev.peter') {
 function autoloadCore($class)
 {
     $parts = explode('\\', $class);
-    require __ROOT__ . '/' . implode('/', $parts) . '/' . end($parts) . '.php';
+    include __ROOT__ . '/' . implode('/', $parts) . '/' . end($parts) . '.php';
+}
+
+function autoloadApp($class)
+{
+    $parts = explode('\\', $class);
+    include __ROOT__ . '/' . implode('/', $parts) . '.php';
 }
 spl_autoload_register('autoloadCore');
+spl_autoload_register('autoloadApp');
 
 // Composer Autoloader
 require __ROOT__.'/vendor/autoload.php';
 
 class_alias('\\core\\utils\\Utils', 'Utils', true);
 
-$router = new core\router\Router($_GET);
+$router = new \core\router\Router($_GET);

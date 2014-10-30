@@ -11,7 +11,9 @@
 * Classes list:
 * - PostsController extends core
 */
-class PostsController extends core\controller\Controller
+namespace app\controller;
+
+class PostsController extends \core\controller\Controller
 {
 
     function __construct()
