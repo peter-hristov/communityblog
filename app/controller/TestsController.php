@@ -10,7 +10,7 @@
 */
 namespace app\controller;
 
-class TestsController extends core\controller\Controller
+class TestsController extends \core\controller\Controller
 {
     function __construct()
     {

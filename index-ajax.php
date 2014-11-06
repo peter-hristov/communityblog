@@ -1,10 +1,8 @@
 <?php
 
-//require './helpers/UsersHelper.php';
-//
-$helper = $_GET['helper'].'Helper';
-$action = $_GET['action'];
+require 'init.php';
 
-require './helpers/'.$helper.'.php';
+$helper = "\\app\\helpers\\".$_GET['helper'].'Helper';
+$action = $_GET['action'];
 
 (new $helper())->$action();

@@ -1,5 +1,7 @@
 <?php
 
+namespace app\helpers;
+
 class TestsHelper
 {
     public function test()
