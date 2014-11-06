@@ -2,7 +2,10 @@
 
 require 'init.php';
 
-$helper = "\\app\\helpers\\".$_GET['helper'].'Helper';
+$helper = "\\app\\controller\\".$_GET['controller'].'Controller';
+
 $action = $_GET['action'];
 
-(new $helper())->$action();
+$msg = (new $helper())->$action();
+
+echo $msg;

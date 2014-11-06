@@ -11,7 +11,7 @@
 
             $.ajax({
                 type : 'GET',
-                url : 'index-ajax.php?helper=Tests&action=test',
+                url : 'index-ajax.php?controller=Tests&action=test',
                 success: function (msg){
                     console.log(msg);
                     $('#result').html(msg);

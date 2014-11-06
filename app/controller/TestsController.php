@@ -27,4 +27,9 @@ class TestsController extends \core\controller\Controller
     {
         echo $this->renderView('Tests/jquery');
     }
+
+    public function test()
+    {
+        return 'omg u made it!';
+    }
 }
