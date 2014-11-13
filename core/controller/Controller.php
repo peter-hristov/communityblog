@@ -15,7 +15,6 @@ namespace core\controller;
 
 class Controller
 {
-
     protected $pdo;
     protected $tableName;
     protected $mailer;
