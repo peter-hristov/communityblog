@@ -1,6 +1,6 @@
 <h1 class="text-center">LOGIN</h1>
 <?php
-    $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
+    $redirect_url = 'http://partyplant.eu/index.php?page=Users&action=blqLogin';
     echo '<a href="'.(new \Facebook\FacebookRedirectLoginHelper($redirect_url))->getLoginUrl().'"> Login With FB </a>';
 ?>
 

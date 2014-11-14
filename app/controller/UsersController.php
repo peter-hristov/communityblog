@@ -55,7 +55,7 @@ class UsersController extends \core\controller\Controller
 
     public function blqLogin()
     {
-        $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
+        $redirect_url = 'http://partyplant.eu/index.php?page=Users&action=blqLogin';
 
         $session = (new \Facebook\FacebookRedirectLoginHelper($redirect_url))->getSessionFromRedirect();
 
