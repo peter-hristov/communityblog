@@ -89,7 +89,7 @@
 
     <script type="text/javascript">
 
-        var currentYear = <?php echo (int)date('Y'); ?>
+        var currentYear = 2014;
 
         var months = [
             {'name' : 'January', 'length' : 31 },
@@ -105,32 +105,6 @@
             {'name' : 'November', 'length' : 31},
             {'name' : 'December', 'length' : 30},
         ];
-
-
-
-
-
-        var errors =
-
-        <?php
-
-
-            $s = array();
-            foreach ($errors as $x => $y) {
-                $s[] = '"'.$x.'"';
-            }
-
-            $b = '['.implode(', ', $s).']';
-
-
-            echo $b;
-
-        ?>
-
-        for (var i = errors.length - 1; i >= 0; i--) {
-            console.log(errors[i]);
-        }
-
 
         var dayElement = document.getElementById('birth-day');
         var monthElement = document.getElementById('birth-month');
@@ -149,21 +123,8 @@
         }
         yearElement.innerHTML = data;
 
-        // Assigning values other than the defaults if we're returning from a post request
-
-        <?php if (isset($data['birth-year'])) : ;?>
-            yearElement.selectedIndex = currentYear - <?php echo (int)$data['birth-year'] ?>  ;
-        <?php  endif;?>
-
-        <?php if (isset($data['birth-month'])) : ;?>
-            monthElement.selectedIndex = <?php echo (int)$data['birth-month'] - 1 ?>  ;
-        <?php  endif;?>
 
         change ();
-
-        <?php if (isset($data['birth-day'])) : ;?>
-            dayElement.selectedIndex = <?php echo (int)$data['birth-day'] - 1 ?>  ;
-        <?php  endif;?>
 
         function change()
         {
