@@ -22,48 +22,21 @@ class UsersController extends \core\controller\Controller
         $this->tableName = "users";
     }
 
-    // To do add capcha, check if user exists , check if password is strong and matches, generate pdf-s
     public function add()
     {
-
         if (!empty($_POST)) {
 
             $data = $_POST;
-            //$errors = $this->registerValidation($data);
-            $errors = array();
+            $errors = $this->registerValidation($data);
 
             if (!empty($data) && empty($errors)) {
 
-                $token = md5(uniqid(mt_rand() , true));
+                $data['token'] = md5(uniqid(mt_rand() , true));
+                $data['email_confirmed'] = false;
+                $data['login_type'] = 1;
+                $data['birthDate'] = $data['birth-year'] . '-' . $data['birth-month'] . '-' . $data['birth-day'];
 
-                // Making a new app_login
-                $stmt = $this->pdo->prepare("INSERT INTO app_logins (name, password) VALUES ( :name, :password)");
-
-                $stmt->execute(array(
-                    ':name' => $data['email'],
-                    ':password' => md5($data['password'])
-                ));
-
-
-                //$loginId = \PDO::lastInsertId();
-                //
-                $loginId = $this->pdo->lastInsertId();
-
-                $stmt = $this->pdo->prepare("INSERT INTO users (login_id, login_type, email, created, name, gender, birthDate, token, email_confirmed)
-                    VALUES ( :login_id, :login_type, :email, :created, :name, :gender, :birthDate, :token, :email_confirmed)
-                    ");
-
-                $stmt->execute(array(
-                    ':login_id' => $loginId,
-                    ':login_type' => 1,
-                    ':email' => $data['email'],
-                    ':created' => date('Y-m-d H:i:s') ,
-                    ':name' => $data['name'],
-                    ':gender' => substr($data['gender'], 0, 1) ,
-                    ':birthDate' => $data['birth-year'] . '-' . $data['birth-month'] . '-' . $data['birth-day'],
-                    ':token' => $token,
-                    ':email_confirmed' => false,
-                ));
+                $this->addNewUser($data);
 
                 // Sending Token
                 $this->mailer->sendEmail('admin@partylpant.eu', $data['email'], 'PartyPlant Account Confirmation',
@@ -79,88 +52,118 @@ class UsersController extends \core\controller\Controller
         echo $this->renderView('Users/add', compact('data', 'errors'));
     }
 
-    public function fbLogin()
-    {
-        echo $this->renderView('Users/fblogin');
-        return;
-    }
-
 
     public function blqLogin()
     {
         $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
 
+        $session = (new \Facebook\FacebookRedirectLoginHelper($redirect_url))->getSessionFromRedirect();
 
-        $helper = new \Facebook\FacebookRedirectLoginHelper($redirect_url);
+        $user_profile = (new \Facebook\FacebookRequest( $session, 'GET', '/me' ))->execute()->getGraphObject(\Facebook\GraphUser::className());
 
+        $data = array(
+            'fb_id' => $user_profile->getId(),
+            'login_type' => 2,
+            'email' => $user_profile->getEmail(),
+            'created' => date('Y-m-d H:i:s'),
+            'name' => $user_profile->getName(),
+            'gender' => 'unisex',
+            'birthDate' => 'n/a',
+            'token' => null,
+            'email_confirmed' => true
+        );
 
-        $session = $helper->getSessionFromRedirect();
+        $x = $this->getAll(array('tableName' => 'fb_logins', 'WHERE' => array('fb_id' => $data['fb_id'])));
 
-        if ( $session )
-            $_SESSION['Auth']['id'] = $session->getToken();
+        if ( empty($x) )
+            $this->addNewUser($data);
+        else
+            $this->_login($data);
 
-        $session = new \Facebook\FacebookSession($_SESSION['Auth']['id']);
-
-        $user_profile = (new \Facebook\FacebookRequest(
-          $session, 'GET', '/me'
-        ))->execute()->getGraphObject(\Facebook\GraphUser::className());
-
-
-
-        echo "Name: " . $user_profile->getName() . ' id : ' . $user_profile->getId() . ' email : ' . $user_profile->getEmail();
-        echo ' '.' location : '.$user_profile->getLocation();
-
-        $login = $this->getAll(array(
-            'tableName' => 'fb_logins',
-            'WHERE' => array(
-                'fb_id' => $user_profile->getId()
-            )
-        ));
-
-        if ( empty($login) )
-            $this->addNewFbUser($user_profile->getId(), $user_profile->getName(), $user_profile->getEmail());
-
-        \core\Utils\Utils::debug($login);
     }
 
-    public function addNewFbUser($fb_id, $name, $email)
+    private function addNewUser( $data )
     {
         // Making a new app_login
-        $stmt = $this->pdo->prepare("INSERT INTO fb_logins (fb_id) VALUES ( :fb_id)");
+        if ( $data['login_type'] == 1) {
+            $stmt = $this->pdo->prepare("INSERT INTO app_logins (name, password) VALUES ( :name, :password)");
 
-        $stmt->execute(array(
-            ':fb_id' => $fb_id
-        ));
+            $stmt->execute(array(
+                ':name' => $data['email'],
+                ':password' => md5($data['password'])
+            ));
+        }
+
+        else if ( $data['login_type'] == 2) {
+            $stmt = $this->pdo->prepare("INSERT INTO fb_logins (fb_id) VALUES ( :fb_id)");
+
+            $stmt->execute(array(
+                ':fb_id' => $data['fb_id']
+            ));
+        }
 
         $loginId = $this->pdo->lastInsertId();
 
-        $stmt = $this->pdo->prepare("INSERT INTO users (login_id, login_type, email, created, name, email_confirmed)
-            VALUES ( :login_id, :login_type, :email, :created, :name, :email_confirmed)
+        $stmt = $this->pdo->prepare("INSERT INTO users (login_id, login_type, email, created, name, gender, birthDate, token, email_confirmed)
+            VALUES ( :login_id, :login_type, :email, :created, :name, :gender, :birthDate, :token, :email_confirmed)
             ");
 
         $stmt->execute(array(
             ':login_id' => $loginId,
-            ':login_type' => 2,
-            ':email' => $email,
+            ':login_type' => $data['login_type'],
+            ':email' => $data['email'],
             ':created' => date('Y-m-d H:i:s') ,
-            ':name' => $name,
-            ':email_confirmed' => true,
+            ':name' => $data['name'],
+            ':gender' => substr($data['gender'], 0, 1) ,
+            ':birthDate' => $data['birthDate'],
+            ':token' => $data['token'],
+            ':email_confirmed' => $data['email_confirmed'],
         ));
 
-        $userID = $this->pdo->lastInsertId();
+        $this->_login($data);
 
+        header('Location: /index.php?page=Posts');
+        die();
+    }
 
-        $user = $this->getAll(array(
-            'tableName' => 'users',
-            'WHERE' => array(
-                'id' => $userID
-            )
-        ))[0];
+    private function _login( $data )
+    {
+        if ( $data['login_type'] == 1) {
 
+            $statement = $this->pdo->prepare('
+                SELECT users.*
+                FROM users
+                Inner JOIN app_logins
+                ON app_logins.id = users.login_id
+                WHERE users.email = :email AND app_logins.password = :password
+            ');
 
-        \core\Utils\Utils::debug($user);
+            $statement->execute(array(
+                ':email' => $data['email'],
+                ':password' => md5($data['password'])
+            ));
+        }
+
+        else if ( $data['login_type'] == 2) {
+
+            $statement = $this->pdo->prepare('
+                SELECT users.*
+                FROM users
+                Inner JOIN fb_logins
+                ON fb_logins.id = users.login_id
+                WHERE fb_logins.fb_id = :fb_id
+            ');
+
+            $statement->execute(array(
+                ':fb_id' => $data['fb_id']
+            ));
+        }
+
+        $user = $statement->fetch(\PDO::FETCH_ASSOC);
 
         if (!empty($user)) {
+
+            session_destroy();
 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -168,9 +171,6 @@ class UsersController extends \core\controller\Controller
 
             $_SESSION['Auth'] = $user;
         }
-
-
-
 
     }
 
@@ -181,34 +181,17 @@ class UsersController extends \core\controller\Controller
             return;
         }
 
-        $statement = $this->pdo->prepare('
-            SELECT users.*
-            FROM users
-            Inner JOIN app_logins
-            ON app_logins.id = users.login_id
-            WHERE users.email = :email AND app_logins.password = :password
-        ');
+        $data = array();
+        $data['email'] = $_POST['email'];
+        $data['password'] = $_POST['password'];
+        $data['login_type'] = 1;
 
-        $statement->execute(array(
-            ':email' => $_POST['email'],
-            ':password' => md5($_POST['password'])
-        ));
-
-        $user = $statement->fetch(\PDO::FETCH_ASSOC);
-
-        if (!empty($user)) {
-
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-
-            $_SESSION['Auth'] = $user;
-        }
-
+        $this->_login($data);
 
         header('Location: /index.php?page=Posts');
         die();
     }
+
 
     public function logout()
     {
