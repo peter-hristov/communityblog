@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE posts
 (
@@ -27,15 +26,24 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE users
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    login_id INT,
     name VARCHAR(100),
     birthDate DATE,
     gender VARCHAR(1),
     email VARCHAR(100),
-    password VARCHAR(40),
     token VARCHAR(50),
     email_confirmed BOOLEAN,
     created DATETIME
 );
+
+DROP TABLE IF EXISTS `app_logins`;
+CREATE TABLE app_logins
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    password VARCHAR(40)
+);
+
 
 ## Posts
 
@@ -68,8 +76,8 @@ VALUES (3, 0, 'This title6', 'This body6', NOW(), NOW());
 ## Users
 
 # 1
-INSERT INTO users(email, password, created)
-VALUES ('admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', NOW());
+# INSERT INTO users(email, password, created)
+# VALUES ('admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', NOW());
 
 
 ## Comments
