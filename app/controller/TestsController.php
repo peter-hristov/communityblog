@@ -28,8 +28,19 @@ class TestsController extends \core\controller\Controller
         echo $this->renderView('Tests/jquery');
     }
 
+    public function googleMap()
+    {
+        echo $this->renderView('Tests/googleMap');
+    }
+
+    public function googleLogin()
+    {
+        echo $this->renderView('Tests/googleLogin');
+    }
+
     public function test()
     {
-        return 'omg u made it!';
+        $a = array('this' => 'that', 'blq' => 'pliok');
+        return json_encode($a);
     }
 }

@@ -8,6 +8,8 @@
         </li>
         <li><a href="index.php?page=Tests&action=ajax">Ajax</a></li>
         <li><a href="index.php?page=Tests&action=jquery">jquery</a></li>
+        <li><a href="index.php?page=Tests&action=googleMap">Google Map</a></li>
+        <li><a href="index.php?page=Tests&action=googleLogin">Google Login</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-default navbar-right">
         <?php if (Utils::isUserLogged()) : ; ?>

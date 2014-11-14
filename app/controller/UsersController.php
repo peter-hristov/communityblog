@@ -100,7 +100,6 @@ class UsersController extends \core\controller\Controller
 
     public function confirmAccount($option = array())
     {
-
         $user = $this->processToken($option['token']);
 
         if (isset($user)) {

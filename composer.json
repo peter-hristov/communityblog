@@ -7,6 +7,7 @@
         "phpmailer/phpmailer": "5.*",
         "twbs/bootstrap": "3.*",
         "yiisoft/jquery" : "2.*",
-        "recaptcha/php5" : "1.*"
+        "recaptcha/php5" : "1.*",
+        "google/apiclient": "1.0.*@beta"
     }
 }

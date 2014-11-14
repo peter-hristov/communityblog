@@ -111,6 +111,7 @@
 
 
         var errors =
+
         <?php
 
 
@@ -128,15 +129,12 @@
 
         for (var i = errors.length - 1; i >= 0; i--) {
             console.log(errors[i]);
-        };
+        }
 
 
-
-
-
-        var dayElement = document.getElementById('birth-day')
-        var monthElement = document.getElementById('birth-month')
-        var yearElement = document.getElementById('birth-year')
+        var dayElement = document.getElementById('birth-day');
+        var monthElement = document.getElementById('birth-month');
+        var yearElement = document.getElementById('birth-year');
 
         var data = '';
         for ( var x in months ) {
