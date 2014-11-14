@@ -80,6 +80,8 @@ class UsersController extends \core\controller\Controller
         else
             $this->_login($data);
 
+        header('Location: /index.php?page=Posts');
+        die();
     }
 
     private function addNewUser( $data )
@@ -121,7 +123,30 @@ class UsersController extends \core\controller\Controller
         ));
 
         $this->_login($data);
+    }
 
+    public function login()
+    {
+        if (empty($_POST)) {
+            echo $this->renderView('Users/login');
+            return;
+        }
+
+        $data = array();
+        $data['email'] = $_POST['email'];
+        $data['password'] = $_POST['password'];
+        $data['login_type'] = 1;
+
+        $this->_login($data);
+
+        header('Location: /index.php?page=Posts');
+        die();
+    }
+
+    public function logout()
+    {
+        $_SESSION = array();
+        session_destroy();
         header('Location: /index.php?page=Posts');
         die();
     }
@@ -163,45 +188,15 @@ class UsersController extends \core\controller\Controller
 
         if (!empty($user)) {
 
-            session_destroy();
-
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
 
             $_SESSION['Auth'] = $user;
         }
-
     }
 
-    public function login()
-    {
-        if (empty($_POST)) {
-            echo $this->renderView('Users/login');
-            return;
-        }
-
-        $data = array();
-        $data['email'] = $_POST['email'];
-        $data['password'] = $_POST['password'];
-        $data['login_type'] = 1;
-
-        $this->_login($data);
-
-        header('Location: /index.php?page=Posts');
-        die();
-    }
-
-
-    public function logout()
-    {
-        $_SESSION = array();
-        session_destroy();
-        header('Location: /index.php?page=Posts');
-        die();
-    }
-
-    public function confirmAccount($option = array())
+    private function confirmAccount($option = array())
     {
         $user = $this->processToken($option['token']);
 

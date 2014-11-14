@@ -9,10 +9,6 @@
 */
 namespace core\wrapper;
 
-require 'vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
-
-// PHPMailer Wrapper
-
 class PHPMailerWrapper
 {
     private $mailer;

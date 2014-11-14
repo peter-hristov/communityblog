@@ -33,7 +33,6 @@ $secredId = 'e237a193c491522f82908a4776aa8dc3';
 $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
 \Facebook\FacebookSession::setDefaultApplication($appId, $secredId);
 
-
 class_alias('\\core\\utils\\Utils', 'Utils', true);
 
 $router = new \core\router\Router($_GET);
