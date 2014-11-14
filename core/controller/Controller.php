@@ -64,7 +64,10 @@ class Controller
                 $query = 'SELECT * ';
             }
 
-            $query.= 'FROM ' . $this->tableName . ' ';
+            if (isset($options['tableName']))
+                $query.= 'FROM ' . $options['tableName'] . ' ';
+            else
+                $query.= 'FROM ' . $this->tableName . ' ';
 
             if (isset($options['WHERE'])) {
                 $query.= 'WHERE ' . $this->constructWhere($options['WHERE']);
@@ -73,6 +76,9 @@ class Controller
             if (isset($options['LIMIT'])) {
                 $query.= ' LIMIT ' . $options['LIMIT'];
             }
+
+
+            echo $query;
 
             $statement = $this->pdo->prepare($query);
             $statement->execute();

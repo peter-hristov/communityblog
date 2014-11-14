@@ -42,6 +42,7 @@
     <footer class="container site-footer text-center">
         <?php require './views/Layout/footer.php'; ?>
     </footer>
+    <?php \core\Utils\Utils::debug($_SESSION); ?>
 
 </body>
 

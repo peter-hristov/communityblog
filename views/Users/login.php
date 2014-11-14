@@ -1,4 +1,8 @@
 <h1 class="text-center">LOGIN</h1>
+<?php
+    $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
+    echo '<a href="'.(new \Facebook\FacebookRedirectLoginHelper($redirect_url))->getLoginUrl().'"> Login With FB </a>';
+?>
 
 <form role="form" action="index.php?page=Users&action=login " method="post">
 

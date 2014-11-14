@@ -8,6 +8,6 @@
         "twbs/bootstrap": "3.*",
         "yiisoft/jquery" : "2.*",
         "recaptcha/php5" : "1.*",
-        "google/apiclient": "1.0.*@beta"
+        "facebook/php-sdk-v4" : "4.0.*"
     }
 }
