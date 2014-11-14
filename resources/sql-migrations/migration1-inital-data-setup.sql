@@ -26,6 +26,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE users
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    login_type INT,
     login_id INT,
     name VARCHAR(100),
     birthDate DATE,
