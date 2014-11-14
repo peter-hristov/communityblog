@@ -29,19 +29,33 @@ class UsersController extends \core\controller\Controller
         if (!empty($_POST)) {
 
             $data = $_POST;
-            $errors = $this->registerValidation($data);
+            //$errors = $this->registerValidation($data);
+            $errors = array();
 
             if (!empty($data) && empty($errors)) {
 
                 $token = md5(uniqid(mt_rand() , true));
 
-                $stmt = $this->pdo->prepare("INSERT INTO users (email, password, created, name, gender, birthDate, token, email_confirmed)
-                    VALUES ( :email, :password, :created, :name, :gender, :birthDate, :token, :email_confirmed)
+                // Making a new app_login
+                $stmt = $this->pdo->prepare("INSERT INTO app_logins (name, password) VALUES ( :name, :password)");
+
+                $stmt->execute(array(
+                    ':name' => $data['email'],
+                    ':password' => md5($data['password'])
+                ));
+
+
+                //$loginId = \PDO::lastInsertId();
+                //
+                $loginId = $this->pdo->lastInsertId();
+
+                $stmt = $this->pdo->prepare("INSERT INTO users (login_id, email, created, name, gender, birthDate, token, email_confirmed)
+                    VALUES ( :login_id, :email, :created, :name, :gender, :birthDate, :token, :email_confirmed)
                     ");
 
                 $stmt->execute(array(
+                    ':login_id' => $loginId,
                     ':email' => $data['email'],
-                    ':password' => md5($data['password']) ,
                     ':created' => date('Y-m-d H:i:s') ,
                     ':name' => $data['name'],
                     ':gender' => substr($data['gender'], 0, 1) ,
