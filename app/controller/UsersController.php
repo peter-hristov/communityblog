@@ -16,6 +16,11 @@ namespace app\controller;
 
 class UsersController extends \core\controller\Controller
 {
+
+    const LOGIN_TYPE_APP = 1;
+    const LOGIN_TYPE_FB = 2;
+
+
     function __construct()
     {
         parent::__construct();
@@ -33,8 +38,8 @@ class UsersController extends \core\controller\Controller
 
                 $data['token'] = md5(uniqid(mt_rand() , true));
                 $data['email_confirmed'] = false;
-                $data['login_type'] = 1;
-                $data['birthDate'] = $data['birth-year'] . '-' . $data['birth-month'] . '-' . $data['birth-day'];
+                $data['login_type'] = self::LOGIN_TYPE_APP;
+                $data['birth_date'] = $data['birth_year'] . '-' . $data['birth_month'] . '-' . $data['birth_day'];
 
                 $this->addNewUser($data);
 
@@ -55,17 +60,16 @@ class UsersController extends \core\controller\Controller
 
     public function blqLogin()
     {
-
-        $user_profile = \core\wrapper\FacebookWrapper::getUserProfileFromRedirect();
+        $fbUserProfile = \core\wrapper\FacebookWrapper::getUserProfileFromRedirect();
 
         $data = array(
-            'fb_id' => $user_profile->getId(),
-            'login_type' => 2,
-            'email' => $user_profile->getEmail(),
+            'fb_id' => $fbUserProfile->getId(),
+            'login_type' => self::LOGIN_TYPE_FB,
+            'email' => $fbUserProfile->getEmail(),
             'created' => date('Y-m-d H:i:s'),
-            'name' => $user_profile->getName(),
+            'name' => $fbUserProfile->getName(),
             'gender' => 'unisex',
-            'birthDate' => 'n/a',
+            'birth_date' => 'n/a',
             'token' => null,
             'email_confirmed' => true
         );
@@ -84,7 +88,7 @@ class UsersController extends \core\controller\Controller
     private function addNewUser( $data )
     {
         // Making a new app_login
-        if ( $data['login_type'] == 1) {
+        if ( $data['login_type'] == self::LOGIN_TYPE_APP) {
             $stmt = $this->pdo->prepare("INSERT INTO app_logins (name, password) VALUES ( :name, :password)");
 
             $stmt->execute(array(
@@ -93,7 +97,7 @@ class UsersController extends \core\controller\Controller
             ));
         }
 
-        else if ( $data['login_type'] == 2) {
+        else if ( $data['login_type'] == self::LOGIN_TYPE_FB) {
             $stmt = $this->pdo->prepare("INSERT INTO fb_logins (fb_id) VALUES ( :fb_id)");
 
             $stmt->execute(array(
@@ -103,8 +107,8 @@ class UsersController extends \core\controller\Controller
 
         $loginId = $this->pdo->lastInsertId();
 
-        $stmt = $this->pdo->prepare("INSERT INTO users (login_id, login_type, email, created, name, gender, birthDate, token, email_confirmed)
-            VALUES ( :login_id, :login_type, :email, :created, :name, :gender, :birthDate, :token, :email_confirmed)
+        $stmt = $this->pdo->prepare("INSERT INTO users (login_id, login_type, email, created, name, gender, birth_date, token, email_confirmed)
+            VALUES ( :login_id, :login_type, :email, :created, :name, :gender, :birth_date, :token, :email_confirmed)
             ");
 
         $stmt->execute(array(
@@ -114,7 +118,7 @@ class UsersController extends \core\controller\Controller
             ':created' => date('Y-m-d H:i:s') ,
             ':name' => $data['name'],
             ':gender' => substr($data['gender'], 0, 1) ,
-            ':birthDate' => $data['birthDate'],
+            ':birth_date' => $data['birth_date'],
             ':token' => $data['token'],
             ':email_confirmed' => $data['email_confirmed'],
         ));
@@ -132,7 +136,7 @@ class UsersController extends \core\controller\Controller
         $data = array();
         $data['email'] = $_POST['email'];
         $data['password'] = $_POST['password'];
-        $data['login_type'] = 1;
+        $data['login_type'] = self::LOGIN_TYPE_APP;
 
         $this->_login($data);
 
@@ -150,34 +154,38 @@ class UsersController extends \core\controller\Controller
 
     private function _login( $data )
     {
-        if ( $data['login_type'] == 1) {
+        echo $data['login_type'];
+
+        if ( $data['login_type'] == self::LOGIN_TYPE_APP) {
 
             $statement = $this->pdo->prepare('
                 SELECT users.*
                 FROM users
                 Inner JOIN app_logins
                 ON app_logins.id = users.login_id
-                WHERE users.email = :email AND app_logins.password = :password
+                WHERE users.email = :email AND app_logins.password = :password AND users.login_type = :login
             ');
 
             $statement->execute(array(
                 ':email' => $data['email'],
-                ':password' => md5($data['password'])
+                ':password' => md5($data['password']),
+                ':login' => self::LOGIN_TYPE_APP
             ));
         }
 
-        else if ( $data['login_type'] == 2) {
+        else if ( $data['login_type'] == self::LOGIN_TYPE_FB) {
 
             $statement = $this->pdo->prepare('
                 SELECT users.*
                 FROM users
                 Inner JOIN fb_logins
                 ON fb_logins.id = users.login_id
-                WHERE fb_logins.fb_id = :fb_id
+                WHERE fb_logins.fb_id = :fb_id AND users.login_type = :login
             ');
 
             $statement->execute(array(
-                ':fb_id' => $data['fb_id']
+                ':fb_id' => $data['fb_id'],
+                ':login' => self::LOGIN_TYPE_FB
             ));
         }
 
@@ -242,8 +250,8 @@ class UsersController extends \core\controller\Controller
                 $errors['clone'] = true;
             }
         }
-        if (!empty($data['password']) && !empty($data['rePassword']) && $data['password'] != $data['rePassword']) {
-            $errors['rePassword'] = true;
+        if (!empty($data['password']) && !empty($data['re_password']) && $data['password'] != $data['re_password']) {
+            $errors['re_password'] = true;
         }
         // Regex taken from http://stackoverflow.com/questions/13384008/php-regex-password-validation-not-working
         if (!empty($data['password']) && !preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/", $data['password'])){
@@ -252,14 +260,14 @@ class UsersController extends \core\controller\Controller
         if (!empty($data['gender']) && !($data['gender'] === 'male' || $data['gender'] === 'female')) {
             $errors['gender'] = true;
         }
-        if (!empty($data['birth-day']) && !($data['birth-day'] >= 1 && $data['birth-day'] <= 31)) {
-            $errors['birth-day'] = true;
+        if (!empty($data['birth_day']) && !($data['birth_day'] >= 1 && $data['birth_day'] <= 31)) {
+            $errors['birth_day'] = true;
         }
-        if (!empty($data['birth-month']) && !($data['birth-month'] >= 1 && $data['birth-month'] <= 12)) {
-            $errors['birth-month'] = true;
+        if (!empty($data['birth_month']) && !($data['birth_month'] >= 1 && $data['birth_month'] <= 12)) {
+            $errors['birth_month'] = true;
         }
-        if (!empty($data['birth-year']) && !($data['birth-year'] >= 1900 && $data['birth-year'] <= 2014)) {
-            $errors['birth-year'] = true;
+        if (!empty($data['birth_year']) && !($data['birth_year'] >= 1900 && $data['birth_year'] <= 2014)) {
+            $errors['birth_year'] = true;
         }
 
         $captcha = \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__);
