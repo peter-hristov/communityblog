@@ -1,8 +1,12 @@
 <h1 class="text-center">LOGIN</h1>
+
+<h3> Log in with Facebook </h3>
 <?php
-    $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
-    echo '<a href="'.(new \Facebook\FacebookRedirectLoginHelper($redirect_url))->getLoginUrl().'"> Login With FB </a>';
+    echo '<a href="'.\core\wrapper\FacebookWrapper::getLoginUrl().'"> Login With FB </a>';
 ?>
+
+
+<h3> Log in with a communityblog account</h3>
 
 <form role="form" action="index.php?page=Users&action=login " method="post">
 
@@ -16,19 +20,6 @@
         <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
     </div>
 
-    <!--  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="exampleInputFile">
-    <p class="help-block">Example block-level help text here.</p>
-  </div> -->
-
-    <!-- <div class="checkbox">
-    <label>
-      <input type="checkbox"> Check me out
-    </label>
-  </div> -->
-
     <button type="submit" class="btn btn-default">Submit</button>
-
 
 </form>
