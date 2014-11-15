@@ -36,7 +36,7 @@ class Ubermodel extends \core\wrapper\PDOWrapper
             $query.= 'FROM ' . $tableName . ' ';
 
             if (isset($options['WHERE'])) {
-                $query.= 'WHERE ' . $this->constructWhere($options['WHERE']);
+                $query.= 'WHERE ' . self::constructWhere($options['WHERE']);
             }
 
             if (isset($options['LIMIT'])) {
@@ -66,9 +66,9 @@ class Ubermodel extends \core\wrapper\PDOWrapper
         $temp = array();
         foreach ($q as $key => $value) {
             if (strtoupper($key) === 'AND' || strtoupper($key) === 'OR') {
-                $temp[] = $this->constructWhere($value, $key);
+                $temp[] = self::constructWhere($value, $key);
             } else {
-                $temp[] = $this->formExpression($key,$value);
+                $temp[] = self::formExpression($key,$value);
             }
         }
         return '(' . implode(' ' . $glue . ' ', $temp) . ')';

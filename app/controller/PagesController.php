@@ -18,6 +18,11 @@ class PagesController extends \core\controller\Controller
         echo $this->renderView('Pages/homepage');
     }
 
+    public function aboutUs()
+    {
+        echo $this->renderView('Pages/about-us');
+    }
+
     public function construction()
     {
         echo $this->renderView('Pages/construction');

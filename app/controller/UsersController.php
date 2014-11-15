@@ -75,7 +75,7 @@ class UsersController extends \core\controller\Controller
             'email_confirmed' => true
         );
 
-        $fbLogin = Ubermodel::getAll(array('tableName' => 'fb_logins', 'WHERE' => array('fb_id' => $data['fb_id'])));
+        $fbLogin = Ubermodel::getAll('fb_logins', array('WHERE' => array('fb_id' => $data['fb_id'])));
 
         if (empty($fbLogin))
             $this->addNewUser($data);
