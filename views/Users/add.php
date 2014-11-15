@@ -4,6 +4,7 @@
 
   <form role="form" action="index.php?page=Users&action=add" method="post">
 
+    <!-- Email Already Registered -->
     <div class="form-group">
         <?php if (isset($errors['clone']) && $errors['clone'] === true ) : ;?>
             <p><span style="color:red;">You remail has already been registered. Are you sure you're not a clone?</span></p>
@@ -11,12 +12,7 @@
     </div>
 
 
-    <div class="form-group">
-        <label id="email-label">
-
-        </label>
-    </div>
-
+    <!--  Email  -->
     <div class="form-group">
         <label for="email">Email
             <?php if ( isset($errors['email']) && $errors['email']) : ; ?>
@@ -26,6 +22,8 @@
         <input <?php if ( isset($data['email'])) echo 'value = \''.$data['email'].'\''; ?> type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>
     </div>
 
+
+    <!-- Password -->
     <div class="form-group">
         <label for="password">Password
             <?php if ( isset($errors['password']) && $errors['password']) : ; ?>
@@ -35,15 +33,19 @@
         <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
     </div>
 
+
+    <!-- Confirm Password -->
     <div class="form-group">
-        <label for="rePassword">Confirm Password
-            <?php if ( isset($errors['rePassword']) && $errors['rePassword']) : ; ?>
+        <label for="re_password">Confirm Password
+            <?php if ( isset($errors['re_password']) && $errors['re_password']) : ; ?>
                 <span style="color:red;">Your passwords did not match!</span>
             <?php endif; ?>
         </label>
-        <input type="password" class="form-control" id="rePassword" name="rePassword" placeholder="Confirm Password" required>
+        <input type="password" class="form-control" id="re_password" name="re_password" placeholder="Confirm Password" required>
     </div>
 
+
+    <!-- Real Name -->
     <div class="form-group">
         <label for="name">Real Name
             <?php if ( isset($errors['name']) && $errors['name']) : ; ?>
@@ -55,6 +57,8 @@
 
     <label>Gender</label>
 
+
+    <!-- Gender Options -->
     <div class="form-group">
         <label class="radio-inline">
             <input <?php if ( isset($data['gender']) && $data['gender'] === 'male') echo 'checked'; ?> type="radio" name="gender" value="male" id="male"> Male
@@ -64,19 +68,22 @@
         </label>
     </div>
 
+
+    <!-- Birthday selector -->
     <div class="controlls form-inline form-group">
         <label>
-            <select name="birth-day" id="birth-day"></select> Day
+            <select name="birth_day" id="birth_day"></select> Day
         </label>
         <label>
-            <select name="birth-month" id="birth-month"></select> Month
+            <select name="birth_month" id="birth_month"></select> Month
         </label>
         <label>
-            <select name="birth-year" id="birth-year"></select> Year
+            <select name="birth_year" id="birth_year"></select> Year
         </label>
     </div>
 
 
+    <!-- Captcha -->
     <label for="email">
         <?php if ( isset($errors['captcha']) && $errors['captcha']) : ; ?>
             <span style="color:red;">Your captcha is not the most valid thing I've ever seen...</span>
@@ -87,6 +94,7 @@
         echo \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__)->html();
      ?>
 
+    <!-- Birthday selector script -->
     <script type="text/javascript">
 
         var currentYear = 2014;
@@ -106,9 +114,9 @@
             {'name' : 'December', 'length' : 30},
         ];
 
-        var dayElement = document.getElementById('birth-day');
-        var monthElement = document.getElementById('birth-month');
-        var yearElement = document.getElementById('birth-year');
+        var dayElement = document.getElementById('birth_day');
+        var monthElement = document.getElementById('birth_month');
+        var yearElement = document.getElementById('birth_year');
 
         var data = '';
         for ( var x in months ) {
@@ -122,7 +130,6 @@
             data += '<option>' + parseInt(i).toString() + '</option>';
         }
         yearElement.innerHTML = data;
-
 
         change ();
 

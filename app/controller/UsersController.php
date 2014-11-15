@@ -20,7 +20,6 @@ class UsersController extends \core\controller\Controller
     const LOGIN_TYPE_APP = 1;
     const LOGIN_TYPE_FB = 2;
 
-
     function __construct()
     {
         parent::__construct();
@@ -34,10 +33,10 @@ class UsersController extends \core\controller\Controller
             $data = $_POST;
             $errors = $this->registerValidation($data);
 
-            if (!empty($data) && empty($errors)) {
+            if (empty($errors)) {
 
-                $data['token'] = md5(uniqid(mt_rand() , true));
                 $data['email_confirmed'] = false;
+                $data['token'] = md5(uniqid(mt_rand() , true));
                 $data['login_type'] = self::LOGIN_TYPE_APP;
                 $data['birth_date'] = $data['birth_year'] . '-' . $data['birth_month'] . '-' . $data['birth_day'];
 
@@ -57,7 +56,6 @@ class UsersController extends \core\controller\Controller
         echo $this->renderView('Users/add', compact('data', 'errors'));
     }
 
-
     public function blqLogin()
     {
         $fbUserProfile = \core\wrapper\FacebookWrapper::getUserProfileFromRedirect();
@@ -74,13 +72,39 @@ class UsersController extends \core\controller\Controller
             'email_confirmed' => true
         );
 
-        $x = $this->getAll(array('tableName' => 'fb_logins', 'WHERE' => array('fb_id' => $data['fb_id'])));
+        $fbLogin = $this->getAll(array('tableName' => 'fb_logins', 'WHERE' => array('fb_id' => $data['fb_id'])));
 
-        if ( empty($x) )
+        if (empty($fbLogin))
             $this->addNewUser($data);
         else
             $this->_login($data);
 
+        header('Location: /index.php?page=Posts');
+        die();
+    }
+
+    public function login()
+    {
+        if (empty($_POST)) {
+            echo $this->renderView('Users/login');
+            return;
+        }
+
+        $data = array();
+        $data['email'] = $_POST['email'];
+        $data['password'] = $_POST['password'];
+        $data['login_type'] = self::LOGIN_TYPE_APP;
+
+        $this->_login($data);
+
+        header('Location: /index.php?page=Posts');
+        die();
+    }
+
+    public function logout()
+    {
+        $_SESSION = array();
+        session_destroy();
         header('Location: /index.php?page=Posts');
         die();
     }
@@ -126,32 +150,6 @@ class UsersController extends \core\controller\Controller
         $this->_login($data);
     }
 
-    public function login()
-    {
-        if (empty($_POST)) {
-            echo $this->renderView('Users/login');
-            return;
-        }
-
-        $data = array();
-        $data['email'] = $_POST['email'];
-        $data['password'] = $_POST['password'];
-        $data['login_type'] = self::LOGIN_TYPE_APP;
-
-        $this->_login($data);
-
-        header('Location: /index.php?page=Posts');
-        die();
-    }
-
-    public function logout()
-    {
-        $_SESSION = array();
-        session_destroy();
-        header('Location: /index.php?page=Posts');
-        die();
-    }
-
     private function _login( $data )
     {
         echo $data['login_type'];
@@ -163,13 +161,13 @@ class UsersController extends \core\controller\Controller
                 FROM users
                 Inner JOIN app_logins
                 ON app_logins.id = users.login_id
-                WHERE users.email = :email AND app_logins.password = :password AND users.login_type = :login
+                WHERE users.email = :email AND app_logins.password = :password AND users.login_type = :login_type
             ');
 
             $statement->execute(array(
                 ':email' => $data['email'],
                 ':password' => md5($data['password']),
-                ':login' => self::LOGIN_TYPE_APP
+                ':login_type' => self::LOGIN_TYPE_APP
             ));
         }
 
@@ -180,12 +178,12 @@ class UsersController extends \core\controller\Controller
                 FROM users
                 Inner JOIN fb_logins
                 ON fb_logins.id = users.login_id
-                WHERE fb_logins.fb_id = :fb_id AND users.login_type = :login
+                WHERE fb_logins.fb_id = :fb_id AND users.login_type = :login_type
             ');
 
             $statement->execute(array(
                 ':fb_id' => $data['fb_id'],
-                ':login' => self::LOGIN_TYPE_FB
+                ':login_type' => self::LOGIN_TYPE_FB
             ));
         }
 
