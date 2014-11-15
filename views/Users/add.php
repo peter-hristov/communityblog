@@ -1,3 +1,4 @@
+<?php \core\utils\Utils::debug($errors); ?>
 <div class="col-sm-4">
 
   <h1 class="text-center">Register</h1>
@@ -6,65 +7,54 @@
 
     <!-- Email Already Registered -->
     <div class="form-group">
-        <?php if (isset($errors['clone']) && $errors['clone'] === true ) : ;?>
-            <p><span style="color:red;">You remail has already been registered. Are you sure you're not a clone?</span></p>
-        <?php endif; ?>
+        <label class="text-danger" id="label-email-registered"></label>
     </div>
 
 
     <!--  Email  -->
     <div class="form-group">
-        <label for="email">Email
-            <?php if ( isset($errors['email']) && $errors['email']) : ; ?>
-                <span style="color:red;">Your email is not valid!</span>
-            <?php endif; ?>
-        </label>
-        <input <?php if ( isset($data['email'])) echo 'value = \''.$data['email'].'\''; ?> type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+        <label for="email">Email</label>
+        <div class="text-danger"> <label id="label-error-email"></label> </div>
+        <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" required>
     </div>
 
 
     <!-- Password -->
     <div class="form-group">
-        <label for="password">Password
-            <?php if ( isset($errors['password']) && $errors['password']) : ; ?>
-                <span style="color:red;">Your password must include 1 lowercase letter, 1 uppercase letter, and 1 digit.</span>
-            <?php endif; ?>
-        </label>
+        <label for="password">Password</label>
+        <div class="text-danger"> <label id="label-error-password"></label> </div>
         <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
     </div>
 
 
     <!-- Confirm Password -->
     <div class="form-group">
-        <label for="re_password">Confirm Password
-            <?php if ( isset($errors['re_password']) && $errors['re_password']) : ; ?>
-                <span style="color:red;">Your passwords did not match!</span>
-            <?php endif; ?>
-        </label>
-        <input type="password" class="form-control" id="re_password" name="re_password" placeholder="Confirm Password" required>
+        <label for="repassword">Confirm Password</label>
+        <div class="text-danger"> <label id="label-error-repassword"></label> </div>
+        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Confirm Password" required>
     </div>
 
 
     <!-- Real Name -->
     <div class="form-group">
-        <label for="name">Real Name
-            <?php if ( isset($errors['name']) && $errors['name']) : ; ?>
-                <span style="color:red;">Your name is not valid!</span>
-            <?php endif; ?>
-        </label>
-        <input <?php if ( isset($data['name'])) echo 'value = \''.$data['name'].'\''; ?> type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+        <label for="name">Real Name</label>
+        <div class="text-danger"> <label id="label-error-name"></label> </div>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
     </div>
-
-    <label>Gender</label>
 
 
     <!-- Gender Options -->
     <div class="form-group">
+        <label>Gender</label>
+
+        <div class="text-danger"> <label id="label-error-gender"> </label> </div>
+
         <label class="radio-inline">
-            <input <?php if ( isset($data['gender']) && $data['gender'] === 'male') echo 'checked'; ?> type="radio" name="gender" value="male" id="male"> Male
+            <input type="radio" name="gender" value="male" id="male"> Male
         </label>
+
         <label class="radio-inline">
-            <input <?php if ( isset($data['gender']) && $data['gender'] === 'female') echo 'checked'; ?> type="radio" name="gender" value="female" id="female"> Female
+            <input type="radio" name="gender" value="female" id="female"> Female
         </label>
     </div>
 
@@ -84,15 +74,39 @@
 
 
     <!-- Captcha -->
-    <label for="email">
-        <?php if ( isset($errors['captcha']) && $errors['captcha']) : ; ?>
-            <span style="color:red;">Your captcha is not the most valid thing I've ever seen...</span>
-        <?php endif; ?>
-    </label>
+    <div class="text-danger"> <label id="label-error-captcha">  </label> </div>
 
     <?php
         echo \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__)->html();
      ?>
+
+    <script type="text/javascript">
+
+        var errors = <?php echo json_encode($errors); ?>;
+
+        var errorsMsg = {
+            'email': "Your email is not valid!",
+            'password': "Your password must contain at least 1 digit, 1 lowecase and 1 uppercase letter!",
+            'repassword': "You did not enter your second password correctly!",
+            'name': "Your name was not enter correctly!",
+            'gender': "Please specify your gender!",
+            'captcha': "You entered the captcha incorrectly!"
+        };
+
+        for( var error in errors ) {
+            if (errors.hasOwnProperty(error)) {
+                console.log(error);
+
+                var id = 'label-error-' + error;
+
+                console.log(id);
+
+                document.getElementById('label-error-' + error).innerHTML = errorsMsg[error];
+            }
+        }
+
+
+    </script>
 
     <!-- Birthday selector script -->
     <script type="text/javascript">
