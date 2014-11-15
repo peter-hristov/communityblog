@@ -14,7 +14,6 @@ $user = array();
 
 $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-
 if (empty($user))
     echo 1;
 else

@@ -13,6 +13,7 @@
  * - UsersController extends core
  */
 namespace app\controller;
+use app\model\Ubermodel as Ubermodel;
 
 class UsersController extends \core\controller\Controller
 {
@@ -73,7 +74,7 @@ class UsersController extends \core\controller\Controller
             'email_confirmed' => true
         );
 
-        $fbLogin = $this->getAll(array('tableName' => 'fb_logins', 'WHERE' => array('fb_id' => $data['fb_id'])));
+        $fbLogin = Ubermodel::getAll(array('tableName' => 'fb_logins', 'WHERE' => array('fb_id' => $data['fb_id'])));
 
         if (empty($fbLogin))
             $this->addNewUser($data);
@@ -114,7 +115,7 @@ class UsersController extends \core\controller\Controller
     {
         // Making a new app_login
         if ( $data['login_type'] == self::LOGIN_TYPE_APP) {
-            $stmt = $this->pdo->prepare("INSERT INTO app_logins (name, password) VALUES ( :name, :password)");
+            $stmt = Ubermodel::$pdo->prepare("INSERT INTO app_logins (name, password) VALUES ( :name, :password)");
 
             $stmt->execute(array(
                 ':name' => $data['email'],
@@ -123,16 +124,16 @@ class UsersController extends \core\controller\Controller
         }
 
         else if ( $data['login_type'] == self::LOGIN_TYPE_FB) {
-            $stmt = $this->pdo->prepare("INSERT INTO fb_logins (fb_id) VALUES ( :fb_id)");
+            $stmt = Ubermodel::$pdo->prepare("INSERT INTO fb_logins (fb_id) VALUES ( :fb_id)");
 
             $stmt->execute(array(
                 ':fb_id' => $data['fb_id']
             ));
         }
 
-        $loginId = $this->pdo->lastInsertId();
+        $loginId = Ubermodel::$pdo->lastInsertId();
 
-        $stmt = $this->pdo->prepare("INSERT INTO users (login_id, login_type, email, created, name, gender, birth_date, token, email_confirmed)
+        $stmt = Ubermodel::$pdo->prepare("INSERT INTO users (login_id, login_type, email, created, name, gender, birth_date, token, email_confirmed)
             VALUES ( :login_id, :login_type, :email, :created, :name, :gender, :birth_date, :token, :email_confirmed)
             ");
 
@@ -157,7 +158,7 @@ class UsersController extends \core\controller\Controller
 
         if ( $data['login_type'] == self::LOGIN_TYPE_APP) {
 
-            $statement = $this->pdo->prepare('
+            $statement = Ubermodel::$pdo->prepare('
                 SELECT users.*
                 FROM users
                 Inner JOIN app_logins
@@ -174,7 +175,7 @@ class UsersController extends \core\controller\Controller
 
         else if ( $data['login_type'] == self::LOGIN_TYPE_FB) {
 
-            $statement = $this->pdo->prepare('
+            $statement = Ubermodel::$pdo->prepare('
                 SELECT users.*
                 FROM users
                 Inner JOIN fb_logins
@@ -207,7 +208,7 @@ class UsersController extends \core\controller\Controller
         if (isset($user)) {
 
             if ($user['email_confirmed'] == 0) {
-                $stmt = $this->pdo->prepare("UPDATE users SET email_confirmed=1 WHERE id=" . $user['id'])->execute();
+                $stmt = Ubermodel::$pdo->prepare("UPDATE users SET email_confirmed=1 WHERE id=" . $user['id'])->execute();
                 echo $this->renderView('Users/confirmed');
             } else {
                 echo $this->renderView('Users/already_confirmed');
@@ -221,7 +222,11 @@ class UsersController extends \core\controller\Controller
     {
         if (empty($token)) return null;
 
-        $statement = $this->pdo->prepare('select * from users where token=:x');
+
+
+
+
+        $statement = Ubermodel::$pdo->prepare('select * from users where token=:x');
         $statement->execute(array(
             ':x' => $token
         ));
@@ -245,7 +250,7 @@ class UsersController extends \core\controller\Controller
             $errors['email'] = true;
         }
 
-        $x = $this->getOne('email', $data['email']);
+        $x = Ubermodel::getOne($this->tableName, 'email', $data['email']);
         if (!empty($x)) {
             $errors['clone'] = true;
         }

@@ -12,6 +12,7 @@
 * - PostsController extends core
 */
 namespace app\controller;
+use app\model\Ubermodel as Ubermodel;
 
 class PostsController extends \core\controller\Controller
 {
@@ -24,15 +25,15 @@ class PostsController extends \core\controller\Controller
 
     public function index($options = array())
     {
-        $data['Posts'] = $this->getAll();
+        $data['Posts'] = Ubermodel::getAll($this->tableName);
         echo $this->renderView('Posts/index', compact('data'));
     }
 
     public function view($options = array())
     {
-        $data['Posts'] = $this->getOne('id', $options['id']);
+        $data['Posts'] = Ubermodel::getOne($this->tableName, 'id', $options['id']);
 
-        $statement = $this->pdo->prepare('
+        $statement = Ubermodel::$pdo->prepare('
             SELECT users.id userID, comments.id commentID, comments.text, users.email, comments.post_id
             FROM users
             RIGHT JOIN comments
@@ -59,7 +60,7 @@ class PostsController extends \core\controller\Controller
             die();
         }
         if (!empty($_POST)) {
-            $stmt = $this->pdo->prepare("INSERT INTO posts (user_id, status, title, body, created, modified)
+            $stmt = Ubermodel::$pdo->prepare("INSERT INTO posts (user_id, status, title, body, created, modified)
                      VALUES ( :user_id, :status, :title, :body, :created, :modified)
                     ");
 
@@ -86,7 +87,7 @@ class PostsController extends \core\controller\Controller
         }
 
         if (!empty($_POST)) {
-            $stmt = $this->pdo->prepare("
+            $stmt = Ubermodel::$pdo->prepare("
                     UPDATE posts
                     SET title=:title, body=:body, modified=:modified
                     WHERE id=:id
@@ -102,7 +103,7 @@ class PostsController extends \core\controller\Controller
             die();
         }
 
-        $data = $this->getOne('id', $options['id']);
+        $data = Ubermodel::getOne($this->tableName, 'id', $options['id']);
         echo $this->renderView('Posts/edit', compact('data'));
     }
 
@@ -114,7 +115,7 @@ class PostsController extends \core\controller\Controller
         }
         if (!empty($_POST)) {
             $id = $_POST['id'];
-            $stmt = $this->pdo->prepare('DELETE FROM posts WHERE id = ' . $id);
+            $stmt = Ubermodel::$pdo->prepare('DELETE FROM posts WHERE id = ' . $id);
             $stmt->execute();
             header('Location: /index.php?page=Posts');
             die();

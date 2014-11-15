@@ -8,6 +8,7 @@
 * - PagesController extends core
 */
 namespace app\controller;
+use app\model\Ubermodel as Ubermodel;
 
 class PagesController extends \core\controller\Controller
 {

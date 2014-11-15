@@ -29,6 +29,7 @@ spl_autoload_register('autoloadAll');
 require __ROOT__.'/vendor/autoload.php';
 
 \core\wrapper\FacebookWrapper::init();
+\app\model\Ubermodel::initialize();
 
 class_alias('\\core\\utils\\Utils', 'Utils', true);
 
