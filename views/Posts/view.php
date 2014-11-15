@@ -7,7 +7,7 @@
 
 <p>Comments</p>
 
-<?php if(Utils::isUserLogged()) : ;?>
+<?php if(\Utils::isUserLogged()) : ;?>
 <a href=<?php echo 'index.php?page=Comments&action=add&post_id='.$data[ 'Posts'][ 'id']?> class="btn btn-success">Add Comment</a>
 <?php endif; ?>
 

@@ -12,7 +12,7 @@
         <!-- Real Name -->
         <div class="form-group">
             <label for="name">Real Name</label>
-            <div class="text-danger"><label id="label-error-name">Your name was not enter correctly!</label></div>
+            <div class="text-danger"><label class="label-name" id="label-error-name">Your name was not enter correctly!</label></div>
             <input type="text" class="txtbox form-control" id="name" name="name" placeholder="Your Name" required>
         </div>
 

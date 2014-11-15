@@ -55,7 +55,7 @@ class PostsController extends \core\controller\Controller
 
     public function add()
     {
-        if (!Utils::isUserLogged()) {
+        if (!\Utils::isUserLogged()) {
             header('Location: /index.php?page=Pages&action=notlogged');
             die();
         }
@@ -81,12 +81,13 @@ class PostsController extends \core\controller\Controller
 
     public function edit($options = array())
     {
-        if (!Utils::isUserLogged()) {
+        if (!\Utils::isUserLogged()) {
             header('Location: /index.php?page=Pages&action=notlogged');
             die();
         }
 
         if (!empty($_POST)) {
+
             $stmt = Ubermodel::$pdo->prepare("
                     UPDATE posts
                     SET title=:title, body=:body, modified=:modified
@@ -104,12 +105,13 @@ class PostsController extends \core\controller\Controller
         }
 
         $data = Ubermodel::getOne($this->tableName, 'id', $options['id']);
+
         echo $this->renderView('Posts/edit', compact('data'));
     }
 
     public function delete()
     {
-        if (!Utils::isUserLogged()) {
+        if (!\Utils::isUserLogged()) {
             header('Location: /index.php?page=Pages&action=notlogged');
             die();
         }
