@@ -21,20 +21,19 @@ CREATE TABLE comments
     modified DATETIME
 );
 
-
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE users
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
     login_type INT,
     login_id INT,
-    name VARCHAR(100),
-    birthDate DATE,
-    gender VARCHAR(1),
     email VARCHAR(100),
+    name VARCHAR(100),
+    gender VARCHAR(1),
+    birth_date DATE,
+    created DATETIME,
     token VARCHAR(50),
-    email_confirmed BOOLEAN,
-    created DATETIME
+    email_confirmed BOOLEAN
 );
 
 DROP TABLE IF EXISTS `app_logins`;
