@@ -1,4 +1,4 @@
-Google plus login and register,
+^ Facebook plus login and register,
 
 Json - Axaj register validation
 
