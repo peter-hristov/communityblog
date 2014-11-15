@@ -243,12 +243,13 @@ class UsersController extends \core\controller\Controller
         }
         if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = true;
-
-            $x = $this->getOne('email', $data['email']);
-            if (!empty($x)) {
-                $errors['clone'] = true;
-            }
         }
+
+        $x = $this->getOne('email', $data['email']);
+        if (!empty($x)) {
+            $errors['clone'] = true;
+        }
+
         // Regex taken from http://stackoverflow.com/questions/13384008/php-regex-password-validation-not-working
         if (!empty($data['password']) && !preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/", $data['password'])){
             $errors['password'] = true;
