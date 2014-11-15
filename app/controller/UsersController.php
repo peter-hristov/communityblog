@@ -14,6 +14,7 @@
  */
 namespace app\controller;
 use app\model\Ubermodel as Ubermodel;
+use app\helper\UsersHelper as UsersHelper;
 
 class UsersController extends \core\controller\Controller
 {
