@@ -4,17 +4,27 @@ namespace core\wrapper;
 
 class FacebookWrapper
 {
+    static $config;
+
     static function init()
     {
-        $appId = '733952263324571';
-        $secredId = 'e237a193c491522f82908a4776aa8dc3';
-        $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
-        \Facebook\FacebookSession::setDefaultApplication($appId, $secredId);
+        self::$config = require __ROOT__.'/config/facebook.'.__ENVIRONMENT__.'.config.php';
+        \Facebook\FacebookSession::setDefaultApplication(self::$config['app_id'], self::$config['secret_id']);
     }
 
     static function getLoginUrl()
     {
-        $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
-        return (new \Facebook\FacebookRedirectLoginHelper($redirect_url))->getLoginUrl();
+        return (new \Facebook\FacebookRedirectLoginHelper(self::$config['redirect_url']))->getLoginUrl();
+    }
+
+    static function getSessionFromRedirect()
+    {
+        return (new \Facebook\FacebookRedirectLoginHelper(self::$config['redirect_url']))->getSessionFromRedirect();
+    }
+
+    static function getUserProfileFromRedirect()
+    {
+        $session = self::getSessionFromRedirect();
+        return (new \Facebook\FacebookRequest( $session, 'GET', '/me' ))->execute()->getGraphObject(\Facebook\GraphUser::className());
     }
 }

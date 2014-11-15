@@ -55,11 +55,8 @@ class UsersController extends \core\controller\Controller
 
     public function blqLogin()
     {
-        $redirect_url = 'http://localhost:8080/index.php?page=Users&action=blqLogin';
 
-        $session = (new \Facebook\FacebookRedirectLoginHelper($redirect_url))->getSessionFromRedirect();
-
-        $user_profile = (new \Facebook\FacebookRequest( $session, 'GET', '/me' ))->execute()->getGraphObject(\Facebook\GraphUser::className());
+        $user_profile = \core\wrapper\FacebookWrapper::getUserProfileFromRedirect();
 
         $data = array(
             'fb_id' => $user_profile->getId(),
