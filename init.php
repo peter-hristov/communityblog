@@ -28,10 +28,9 @@ spl_autoload_register('autoloadAll');
 // Composer Autoloader
 require __ROOT__.'/vendor/autoload.php';
 
-$appId = '733952263324571';
-$secredId = 'e237a193c491522f82908a4776aa8dc3';
-$redirect_url = 'http://partyplant.eu/index.php?page=Users&action=blqLogin';
-\Facebook\FacebookSession::setDefaultApplication($appId, $secredId);
+
+\core\wrapper\FacebookWrapper::init();
+\app\model\Ubermodel::initialize();
 
 class_alias('\\core\\utils\\Utils', 'Utils', true);
 

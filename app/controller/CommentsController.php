@@ -8,6 +8,7 @@
  * - CommentsController extends core
  */
 namespace app\controller;
+use app\model\Ubermodel as Ubermodel;
 
 class CommentsController extends core\controller\Controller
 {
@@ -22,7 +23,7 @@ class CommentsController extends core\controller\Controller
     {
         if (!empty($_POST)) {
 
-            $stmt = $this->pdo->prepare("INSERT INTO comments (user_id, post_id, text, created, modified)
+            $stmt = Ubermodel::$pdo->prepare("INSERT INTO comments (user_id, post_id, text, created, modified)
                     VALUES ( :user_id, :post_id, :text, :created, :modified)
                     ");
 

@@ -1,8 +1,10 @@
-Google plus login and register,
+^ Facebook plus login and register,
 
 Json - Axaj register validation
 
-Rss Feed - xml,
+Some Error Handlig!
+
+^validation Rss Feed - xml,
 
 ^ Google Map - About Page,
 

@@ -9,6 +9,7 @@
 * - TestsController extends core
 */
 namespace app\controller;
+use app\model\Ubermodel as Ubermodel;
 
 class TestsController extends \core\controller\Controller
 {
