@@ -1,8 +1,7 @@
 <?php
-    //header("Content-Type: application/rss+xml; charset=ISO-8859-1");
     require 'init.php';
 
-    $rssfeed = '<?xml version="1.0" encoding="UTF8"?>';
+    $rssfeed = '<?xml version="1.0" encoding="ISO-8859-1"?>';
     $rssfeed .= '<rss version="2.0">';
     $rssfeed .= '<channel>';
     $rssfeed .= '<title>CommunityBlog RSS Feed</title>';
@@ -16,9 +15,9 @@
 
     while ( $row = $statement->fetch(\PDO::FETCH_ASSOC) ) {
         $rssfeed .= '<item>';
-        $rssfeed .= '<title>' . $row['title'] . '</title>';
-        $rssfeed .= '<description>' . $row['body'] . '</description>';
-        $rssfeed .= '<link>'.'index.php?page=Posts&action=view&id='.$row['id'].'</link>';
+        $rssfeed .= '<title>' . htmlentities($row['title']) . '</title>';
+        $rssfeed .= '<description>' . htmlentities($row['body']) . '</description>';
+        $rssfeed .= '<link>'.htmlentities('http://'.__SITENAME__.'/index.php?page=Posts&action=view&id='.$row['id']).'</link>';
         $rssfeed .= '</item>';
     }
 
