@@ -17,7 +17,7 @@
 
     while ( $row = $statement->fetch(\PDO::FETCH_ASSOC) ) {
         $rssfeed .= '<item>';
-        $rssfeed .= '<guid>'.$row['id'].'</guid>';
+        $rssfeed .= '<guid>'.htmlentities('http://'.__SITENAME__.'/index.php?page=Posts&action=view&id='.$row['id']).'</guid>';
         $rssfeed .= '<title>' . htmlentities($row['title']) . '</title>';
         $rssfeed .= '<description>' . htmlentities($row['body']) . '</description>';
         $rssfeed .= '<link>'.htmlentities('http://'.__SITENAME__.'/index.php?page=Posts&action=view&id='.$row['id']).'</link>';
