@@ -12,28 +12,29 @@
         <!-- Real Name -->
         <div class="form-group">
             <label for="name">Real Name</label>
-            <div class="text-danger"><label class="label-name" id="label-error-name">Your name was not enter correctly!</label></div>
+            <div><label class="text-danger label-name" id="label-error-name">Your name was not enter correctly!</label></div>
             <input type="text" class="txtbox form-control" id="name" name="name" placeholder="Your Name" required>
         </div>
 
         <!--  Email  -->
         <div class="form-group">
             <label for="email">Email</label>
-            <div class="text-danger"><label class="label-email" id="label-error-email">Your email is not valid!</label></div>
-            <div class="text-danger"><label class="label-email" id="label-error-clone">User with the same email exists!</label></div>
+            <div><label class="text-danger label-email" id="label-error-email">Your email is not valid!</label></div>
+            <div><label class="text-danger label-email" id="label-error-clone">User with the same email exists!</label></div>
             <input type="text" class="txtbox form-control" id="email" name="email" placeholder="Enter Email" required>
         </div>
 
+        <!-- Password -->
         <div class="form-group">
             <label for="password">Password</label>
-            <div class="text-danger"><label class="label-password" id="label-error-password">Your password must contain at least 1 digit, 1 lowecase and 1 uppercase letter!</label></div>
+            <div><label class="text-danger label-password" id="label-error-password">Your password must contain at least 1 digit, 1 lowecase and 1 uppercase letter!</label></div>
             <input type="password" class="txtbox form-control" id="password" name="password" placeholder="Enter Password" required>
         </div>
 
         <!-- Confirm Password -->
         <div class="form-group">
             <label for="repassword">Confirm Password</label>
-            <div class="text-danger"><label class="label-repassword" id="label-error-repassword">You did not enter your second password correctly!</label></div>
+            <div><label class="text-danger label-repassword" id="label-error-repassword">You did not enter your second password correctly!</label></div>
             <input type="password" class="txtbox form-control" id="repassword" name="repassword" placeholder="Confirm Password" required>
         </div>
 
@@ -76,27 +77,23 @@
         <?php
             echo \core\wrapper\CaptchaWrapper::createCaptcha(__ENVIRONMENT__)->html();
         ?>
-
-
-        <button type="submit" class="btn btn-default">Submit</button>
         <a href="#terms-and-conditions" id="link-terms">Show Terms and Conditions</a>
+        <button type="submit" class="btn btn-default">Submit</button>
     </div>
 </form>
 </div>
+
 <div class="col-sm-8">
     <div id="terms-and-confitions">
         <?php require __ROOT__.'/terms-and-conditions.html'; ?>
     </div>
-    <div id="myID">
-
-    </div>
-
+    <div id="myID"></div>
 </div>
 
 
 <script type="text/javascript">
 
-    $(".text-danger label").hide();
+    $(".text-danger").hide();
 
     $('#terms-and-confitions').hide();
 
