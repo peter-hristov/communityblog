@@ -8,4 +8,6 @@ $action = $_GET['action'];
 unset($_GET['helper']);
 unset($_GET['action']);
 
-echo $helper::$action($_GET);
+header('content-disposition: application/json; charset=utf-8');
+
+echo json_encode($helper::$action($_GET));

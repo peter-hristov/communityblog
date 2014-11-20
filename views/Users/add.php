@@ -122,6 +122,7 @@
                 url: "./ajax/index.php",
                 data: "&email=" + $('#email').val() + "&helper=" + 'Users' + '&action=' + 'doesUserExist' ,
                 success: function(response) {
+                    console.log(response);
                     if (response == '0') {
                         $('#label-error-clone').hide();
                     }

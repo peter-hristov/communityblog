@@ -9,10 +9,7 @@ class UsersHelper extends \core\helper\Helper
     {
         $user = Ubermodel::getOne('users', 'email', $args['email']);
 
-        if (empty($user)) {
-            return 0;
-        }
-        return 1;
+        return $user;
     }
 
     static function testResponse()
