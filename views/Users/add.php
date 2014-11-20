@@ -119,7 +119,7 @@
         $("#email").change(function() {
             $.ajax({
                 type: "GET",
-                url: "./ajax/index.php",
+                url: "./api/index.php",
                 data: "&email=" + $('#email').val() + "&helper=" + 'Users' + '&action=' + 'doesUserExist' ,
                 success: function(response) {
                     console.log(response);

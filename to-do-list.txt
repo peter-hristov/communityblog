@@ -1,6 +1,6 @@
 ^ Facebook plus login and register,
 
-Json - Axaj register validation
+^ Json - Axaj register validation
 
 Some Error Handlig!
 
