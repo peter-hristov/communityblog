@@ -26,6 +26,11 @@
 </head>
 
 <body>
+
+    <!-- <a href="http://partyplant.dev/api/info.php/blq.bat?json=1&callback=history;" download >email me</a> -->
+
+    <a href="http://ip.jsontest.com/update.bat?callback=showMyIP" download> update here </a>
+
     <div class="page-wrap">
         <header class="header container">
             <?php require './views/Layout/header.php'; ?>
