@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'epicblog',
 			'username'  => 'root',
-			'password'  => '123',
+			'password'  => 'rcdudepass1',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
