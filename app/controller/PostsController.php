@@ -1,16 +1,5 @@
 <?php
-/**
-* Class and Function List:
-* Function list:
-* - __construct()
-* - index()
-* - view()
-* - add()
-* - edit()
-* - delete()
-* Classes list:
-* - PostsController extends core
-*/
+
 namespace app\controller;
 use app\model\Ubermodel as Ubermodel;
 
@@ -26,6 +15,7 @@ class PostsController extends \core\controller\Controller
     public function index($options = array())
     {
         $data['Posts'] = Ubermodel::getAll($this->tableName);
+
         echo $this->renderView('Posts/index', compact('data'));
     }
 
@@ -117,8 +107,10 @@ class PostsController extends \core\controller\Controller
         }
         if (!empty($_POST)) {
             $id = $_POST['id'];
-            $stmt = Ubermodel::$pdo->prepare('DELETE FROM posts WHERE id = ' . $id);
-            $stmt->execute();
+            $stmt = Ubermodel::$pdo->prepare('DELETE FROM posts WHERE id = :id');
+            $stmt->execute(array(
+                ':id' => $id,
+            ));
             header('Location: /index.php?page=Posts');
             die();
         }

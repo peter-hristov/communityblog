@@ -1,18 +1,10 @@
 <?php
-/**
-* Class and Function List:
-* Function list:
-* - index()
-* - notlogged()
-* Classes list:
-* - PagesController extends core
-*/
+
 namespace app\controller;
 use app\model\Ubermodel as Ubermodel;
 
 class PagesController extends \core\controller\Controller
 {
-
     public function index()
     {
         echo $this->renderView('Pages/homepage');

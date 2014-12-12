@@ -1,17 +1,5 @@
 <?php
-/**
- * Class and Function List:
- * Function list:
- * - __construct()
- * - add()
- * - login()
- * - logout()
- * - confirmAccount()
- * - processToken()
- * - registerValidation()
- * Classes list:
- * - UsersController extends core
- */
+
 namespace app\controller;
 use app\model\Ubermodel as Ubermodel;
 use app\helper\UsersHelper as UsersHelper;
@@ -156,8 +144,6 @@ class UsersController extends \core\controller\Controller
 
     private function _login( $data )
     {
-        echo $data['login_type'];
-
         if ( $data['login_type'] == self::LOGIN_TYPE_APP) {
 
             $statement = Ubermodel::$pdo->prepare('
@@ -223,10 +209,6 @@ class UsersController extends \core\controller\Controller
     private function processToken($token)
     {
         if (empty($token)) return null;
-
-
-
-
 
         $statement = Ubermodel::$pdo->prepare('select * from users where token=:x');
         $statement->execute(array(

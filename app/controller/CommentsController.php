@@ -1,18 +1,10 @@
 <?php
-/**
- * Class and Function List:
- * Function list:
- * - __construct()
- * - add()
- * Classes list:
- * - CommentsController extends core
- */
+
 namespace app\controller;
 use app\model\Ubermodel as Ubermodel;
 
 class CommentsController extends core\controller\Controller
 {
-
     function __construct()
     {
         parent::__construct();
