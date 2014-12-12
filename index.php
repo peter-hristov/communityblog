@@ -1,19 +1,12 @@
 <?php require 'init.php'; ?>
 
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
-
+<html>
 <head>
     <title>Community Blog</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
     <script src="./vendor/yiisoft/jquery/jquery.js"></script>
@@ -26,22 +19,26 @@
 </head>
 
 <body>
-
-    <!-- <a href="http://partyplant.dev/api/info.php/blq.bat?json=1&callback=history;" download >email me</a> -->
-
     <div class="page-wrap">
+        <!-- Header -->
         <header class="header container">
             <?php require './views/Layout/header.php'; ?>
         </header>
+
         <hr>
+
+        <!-- Navabar -->
         <div class="navigation container">
             <?php require './views/Layout/navbar.php'; ?>
         </div>
+
+        <!-- Content -->
         <div id="main" class="content container clear-top   ">
             <?php (new $router->controller())->{$router->action}($_GET); ?>
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="container site-footer text-center">
         <?php require './views/Layout/footer.php'; ?>
     </footer>

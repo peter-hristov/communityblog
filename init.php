@@ -18,6 +18,7 @@ if ( __ENVIRONMENT__ == 'dev.peter') {
     if (!defined("__SITENAME__")) define("__SITENAME__", 'partyplant.dev');
 }
 
+// Autoloader for all framework and app classes
 function autoloadAll($class)
 {
     $parts = explode('\\', $class);
@@ -29,10 +30,12 @@ spl_autoload_register('autoloadAll');
 // Composer Autoloader
 require __ROOT__.'/vendor/autoload.php';
 
-
+// Initiazing the static classes
 \core\wrapper\FacebookWrapper::init();
 \app\model\Ubermodel::initialize();
 
+// This is just for convenience
 class_alias('\\core\\utils\\Utils', 'Utils', true);
 
+// Getting request controller and anction from router
 $router = new \core\router\Router($_GET);

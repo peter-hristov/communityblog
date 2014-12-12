@@ -1,0 +1,24 @@
+{
+  "name": "epicblog",
+  "version": "0.1.0",
+  "homepage": "https://github.com/FamousCake/epicblog",
+  "authors": [
+    "Famous <peter.g.hristov@gmail.com>"
+  ],
+  "description": "Such epic blog",
+  "keywords": [
+    "some"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.1"
+  }
+}
